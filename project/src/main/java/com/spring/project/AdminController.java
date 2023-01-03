@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * Handles requests for the application home page.
  */
 @Controller
-public class HomeController {	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+public class AdminController {	
+	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 
-	@RequestMapping(value = "/main/userMain.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/adminMain.do", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
@@ -29,6 +29,6 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "/main/userMain";
-	}	
+		return "/main/adminMain";
+	}
 }
