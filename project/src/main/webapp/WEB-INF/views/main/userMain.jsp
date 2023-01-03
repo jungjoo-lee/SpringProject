@@ -6,6 +6,10 @@
 	<title>메인 페이지</title>
 </head>
 <body>
+<div class="page-breadcrumb">
+</div>
+<div class="container-fluid">
 askljghlkfjdhglkjfdhkljhdflkjghzlxkjhglkjlgkuhiughlkxglkjfxh
+</div>
 </body>
 </html>

@@ -5,6 +5,7 @@
 <head>
     <link rel="icon" type="image/png" sizes="16x16" href="<c:url value='/resources/images/favicon.png'/>">
 	<link href="<c:url value='/resources/css/style.min.css'/>" rel="stylesheet">
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
 <header class="topbar" data-navbarbg="skin6">
 	<nav class="navbar top-navbar navbar-expand-md">
@@ -216,7 +217,5 @@
 <script src="<c:url value='/resources/js/sparkline.js'/>"></script>
     <!--Wave Effects -->
     <!-- themejs -->
-    <!--Menu sidebar -->
-<script src="<c:url value='/resources/js/sidebarmenu.js'/>"></script>
 <!--Custom JavaScript -->
 <script src="<c:url value='/resources/js/custom.min.js'/>"></script>
