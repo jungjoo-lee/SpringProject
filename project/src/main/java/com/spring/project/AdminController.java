@@ -1,18 +1,18 @@
 package com.spring.project;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.project.service.UserService;
+import com.spring.project.vo.PageVO;
 
 /**
  * Handles requests for the application home page.
@@ -25,24 +25,22 @@ public class AdminController {
 	UserService userService;
 
 	@RequestMapping(value = "/admin/adminMain.do", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
+	public String adminMain(Model model) {
+		logger.info("메인");
 		
 		return "/admin/adminMain";
 	}
 	
-	@RequestMapping(value = "/admin/memberList.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String memberList(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		model.addAttribute("list", userService.listUsers());
+	@RequestMapping(value = "/admin/userList.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String memberList( Model model) {
+		logger.info("회원 리스트");
 		
-		return "/admin/memberList";
+		int amount = 10;
+		int total = userService.totalUsers();
+		PageVO pageVO = new PageVO(1, amount, total);
+		model.addAttribute("pageVO", pageVO);
+		model.addAttribute("list", userService.listUsers(pageVO));
+		
+		return "/admin/userList";
 	}
 }
