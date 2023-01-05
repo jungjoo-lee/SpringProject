@@ -32,7 +32,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/admin/userList.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String memberList( Model model) {
+	public String memberList(Model model) {
 		logger.info("회원 리스트");
 		
 		int amount = 10;

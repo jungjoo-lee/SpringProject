@@ -54,7 +54,7 @@ function list(num) {
 			document.querySelector("#pagination").innerHTML = pagecontent;
 
 		} else {
-			console.log(jsonResult.message);
+			alert(jsonResult.message);
 		}
 	});
 }

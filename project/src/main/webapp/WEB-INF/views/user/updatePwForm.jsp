@@ -6,34 +6,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>로그인</title>
+<title>비밀번호 변경</title>
 </head>
 <body>
 <form>
-아이디 <input type="text" name="userid" id="userid"><br/>
-비밀번호 <input type="password" name="pwd" id="pwd"><br/>
-<input type="button" id="loginButton" value="로그인"><br/>
+새 비밀번호 <input type="password" name="pwd" id="pwd"><br/>
+새 비밀번호 확인 <input type="password" name="pwd1" id="pwd1"><br/>
+<input type="button" id="updatePwButton" value="비밀번호 변경">
 <input type="reset" value="초기화">
 </form>
-
-<a href="<c:url value='/user/registerForm.do'/>">회원가입</a>|<a href="<c:url value='/user/findIdForm.do'/>">아이디 찾기</a>|<a href="<c:url value='/user/findPwForm.do'/>">비밀번호 찾기</a>
-
 <script type="text/javascript">
-let loginButton = document.getElementById("loginButton");
+let updatePwButton = document.getElementById("updatePwButton");
 
-loginButton.addEventListener("click", (e) => {
+updatePwButton.addEventListener("click", (e) => {
   	e.preventDefault();
-  	login();
+  	updatePw();
 });
 
-function login() {
-	fetch("<c:url value='/user/login.do'/>", {
+function updatePw() {
+	fetch("<c:url value='/user/updatePw.do'/>", {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json;charset=utf-8'
 		},
 		body: JSON.stringify({
-			userid: userid.value,
 			pwd: pwd.value
 		})
 	})

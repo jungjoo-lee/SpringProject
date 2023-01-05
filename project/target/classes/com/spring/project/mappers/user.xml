@@ -14,4 +14,24 @@
 	<select id="totalUsers" resultType="int">
 		select count(*) from member
 	</select>
+	
+	<select id="findByID" resultType="com.spring.project.vo.UserVO">
+		select * from member where userid = #{userid}
+	</select>
+	
+	<insert id="register">
+		insert into member(userid, pwd, name, sex, phone, address) values (#{userid}, #{pwd}, #{name}, #{sex}, #{phone}, #{address})
+	</insert>
+	
+	<select id="findId" resultType="String">
+		select userid from member where name = #{name} and phone = #{phone}
+	</select>
+	
+	<select id="findPw" resultType="com.spring.project.vo.UserVO">
+		select * from member where userid = #{userid} and name = #{name} and phone = #{phone}
+	</select>
+	
+	<update id="updatePw">
+		update member set pwd = #{pwd} where userid = #{userid}
+	</update>
 </mapper>
