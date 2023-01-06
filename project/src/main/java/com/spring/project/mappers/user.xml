@@ -19,6 +19,10 @@
 		select * from member where userid = #{userid}
 	</select>
 	
+	<update id="loginTimeUpdate">
+		update member set LOGINDATETIME = sysdate where userid = #{userid}
+	</update>
+	
 	<insert id="register">
 		insert into member(userid, pwd, name, sex, phone, address) values (#{userid}, #{pwd}, #{name}, #{sex}, #{phone}, #{address})
 	</insert>
@@ -34,4 +38,12 @@
 	<update id="updatePw">
 		update member set pwd = #{pwd} where userid = #{userid}
 	</update>
+	
+	<update id="updateUser">
+		update member set pwd = #{pwd}, name = #{name}, sex = #{sex}, phone = #{phone}, address = #{address} where userid = #{userid}
+	</update>
+	
+	<delete id="deleteUser">
+		delete from member where userid = #{userid}
+	</delete>
 </mapper>

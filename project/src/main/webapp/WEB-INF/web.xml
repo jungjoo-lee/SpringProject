@@ -11,6 +11,7 @@
 	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>
+		<listener-class>com.spring.project.service.VisitService</listener-class>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 

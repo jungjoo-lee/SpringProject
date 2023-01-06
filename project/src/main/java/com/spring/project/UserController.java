@@ -3,8 +3,8 @@ package com.spring.project;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.StringTokenizer;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.project.service.UserService;
+import com.spring.project.service.VisitService;
 import com.spring.project.vo.UserVO;
 
 @Controller
@@ -75,10 +76,24 @@ public class UserController {
 			logger.info("" + vo);
 			
 			if (vo != null && vo.getPwd().equals(map.get("pwd"))) {
-				// TODO 로그인 시간 바꾸기
-				resultMap.put("status", true);
-				resultMap.put("message", "안녕하세요. " + vo.getName() + "님");
-				resultMap.put("url", "/project/main/userMain.do");
+				if ("T".equals(vo.getAdmincheck())) {
+					resultMap.put("status", true);
+					resultMap.put("message", "안녕하세요. 관리자님");
+					resultMap.put("url", "/project/admin/adminMain.do");
+				} else {
+					if("T".equals(vo.getLoginCheck())) {
+						userService.loginTimeUpdate(map.get("userid"));
+						session.setMaxInactiveInterval(-1);
+						session.setAttribute("userLogin", true);
+						session.setAttribute("userVO", vo);
+						resultMap.put("status", true);
+						resultMap.put("message", "안녕하세요. " + vo.getName() + "님");
+						resultMap.put("url", "/project/main/userMain.do");
+					} else {
+						resultMap.put("status", false);
+						resultMap.put("message", "관리자한테 문의하세요.");
+					}
+				}
 			} else {
 				resultMap.put("status", false);
 				resultMap.put("message", "회원 정보가 없습니다.");
@@ -183,31 +198,83 @@ public class UserController {
 	public String userView(HttpSession session, Model model) {
 		logger.info("회원 정보 보기");
 		
-		
+		model.addAttribute("userVO", session.getAttribute("userVO"));
 		
 		return "/user/userView";
 	}
 	
 	@RequestMapping("/user/updateForm.do")
-	public String updateForm() {
+	public String updateForm(HttpSession session, Model model) {
 		logger.info("회원 정보 수정 페이지");
+		
+		UserVO vo = (UserVO) session.getAttribute("userVO");
+		String phone = vo.getPhone();
+		StringTokenizer st = new StringTokenizer(phone, "-");
+		model.addAttribute("userVO", vo);
+		model.addAttribute("num1", st.nextToken());
+		model.addAttribute("num2", st.nextToken());
+		model.addAttribute("num3", st.nextToken());
 		
 		return "/user/updateForm";
 	}
 	
 	@RequestMapping(value = "/user/update.do", method = RequestMethod.POST)
-	public String update(HttpSession session, Model model) {
+	public @ResponseBody Map<String, Object> update(HttpSession session, @RequestBody UserVO vo) {
 		logger.info("회원 정보 수정");
 		
+		Map<String , Object> resultMap = new HashMap<String, Object>();
 		
+		try {
+			logger.info("" + vo);
+			userService.updateUser(vo);
+			session.setAttribute("userVO", userService.login(vo.getUserid()));
+			resultMap.put("status", true);
+			resultMap.put("message", "정상적으로 회원정보가 변경되었습니다.");
+			resultMap.put("url", "/project/user/userView.do");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			resultMap.put("status", false);
+			resultMap.put("message", "오류");
+		}
 		
-		return "/user/userView";
+		return resultMap;
 	}
 	
 	@RequestMapping(value = "/user/userDelete.do", method = RequestMethod.POST)
-	public String userDelete(HttpSession session, Model model) {
+	public @ResponseBody Map<String, Object> userDelete(HttpSession session, @RequestBody Map<String, String> map) {
 		logger.info("회원 정보 삭제");
 		
-		return "/main/userMain";
+		Map<String , Object> resultMap = new HashMap<String, Object>();
+		
+		try {
+			logger.info("" + map);
+			UserVO vo = (UserVO) session.getAttribute("userVO");
+
+			if (map.get("pwd").equals(vo.getPwd())) {
+				userService.deleteUser(vo);
+				session.invalidate();
+				resultMap.put("status", true);
+				resultMap.put("message", "정상적으로 탈퇴되었습니다.\n이용해 주셔서 감사합니다.");
+				resultMap.put("url", "/project/main/userMain.do");
+			} else {
+				resultMap.put("status", false);
+				resultMap.put("message", "오류");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			resultMap.put("status", false);
+			resultMap.put("message", "오류");
+		}
+		
+		return resultMap;
+	}
+	
+	@RequestMapping("/user/logout.do")
+	public String logout(HttpSession session, Model model) {
+		logger.info("로그아웃");
+		
+		session.invalidate();
+		
+		return "redirect:/main/userMain.do";
 	}
 }

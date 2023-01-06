@@ -3,10 +3,10 @@ package com.spring.project.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.spring.project.mappers.UserDAO;
+import com.spring.project.mappers.OrderDAO;
 
 @Service
-public class AdminService {
+public class OrderService {
 	@Autowired
-	UserDAO userDAO;
+	OrderDAO orderDAO;
 }

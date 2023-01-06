@@ -28,6 +28,10 @@ public class UserService {
 		return userDAO.findByID(userid);
 	}
 	
+	public void loginTimeUpdate(String userid) throws SQLException {
+		userDAO.loginTimeUpdate(userid);
+	}
+	
 	public void register(UserVO vo) throws SQLException {
 		userDAO.register(vo);
 	}
@@ -42,5 +46,13 @@ public class UserService {
 	
 	public void updatePw(Map<String, String> map) throws SQLException {
 		userDAO.updatePw(map);
+	}
+	
+	public void updateUser(UserVO vo) throws SQLException {
+		userDAO.updateUser(vo);
+	}
+	
+	public void deleteUser(UserVO vo) throws SQLException {
+		userDAO.deleteUser(vo);
 	}
 }
