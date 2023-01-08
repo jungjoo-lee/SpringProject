@@ -16,12 +16,12 @@ public class UserService {
 	@Autowired
 	UserDAO userDAO;
 	
-	public List<UserVO> listUsers(PageVO vo) {
-		return userDAO.listUsers(vo);
+	public List<UserVO> listUsers(Map<String, Object> map) {
+		return userDAO.listUsers(map);
 	}
 	
-	public int totalUsers() {
-		return userDAO.totalUsers();
+	public int totalUsers(Map<String, Object> map) {
+		return userDAO.totalUsers(map);
 	}
 	
 	public UserVO login(String userid) throws SQLException {

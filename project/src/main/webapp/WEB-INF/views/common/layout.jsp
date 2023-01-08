@@ -29,7 +29,7 @@
 </div>
 <script src="<c:url value='/resources/js/header/jquery.min.js'/>"></script>
     <!-- Bootstrap tether Core JavaScript -->
-<script src="<c:url value='/resources/js/header/popper.min.js'/>"></script>
+<script src="<c:url value='/resources/js/header/popper.min.js'/>"></script>s
 <script src="<c:url value='/resources/js/header/bootstrap.min.js'/>"></script>
     <!-- apps -->
     <!-- apps -->

@@ -11,8 +11,8 @@ import com.spring.project.vo.UserVO;
 
 @Repository
 public interface UserDAO {
-	List<UserVO> listUsers(PageVO vo);
-	int totalUsers();
+	List<UserVO> listUsers(Map<String, Object> map);
+	int totalUsers(Map<String, Object> map);
 	UserVO findByID(String userid) throws SQLException;
 	void loginTimeUpdate(String userid) throws SQLException;
 	void register(UserVO vo) throws SQLException;

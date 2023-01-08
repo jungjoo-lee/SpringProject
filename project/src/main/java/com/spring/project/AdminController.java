@@ -1,5 +1,8 @@
 package com.spring.project;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +39,15 @@ public class AdminController {
 		logger.info("회원 리스트");
 		
 		int amount = 10;
-		int total = userService.totalUsers();
+		Map<String, Object> inpoMap = new HashMap<String, Object>();
+		inpoMap.put("searchType", "");
+		inpoMap.put("keyword", "");
+		int total = userService.totalUsers(inpoMap);
 		PageVO pageVO = new PageVO(1, amount, total);
+		inpoMap.put("pageVO", pageVO);
+		
 		model.addAttribute("pageVO", pageVO);
-		model.addAttribute("list", userService.listUsers(pageVO));
+		model.addAttribute("list", userService.listUsers(inpoMap));
 		
 		return "/admin/userList";
 	}

@@ -21,7 +21,7 @@
 					<span class="hide-menu">관리 목록</span></a>
 					
 					<ul aria-expanded="false" class="collapse  first-level base-level-line">
-						<li class="sidebar-item"><a href="<c:url value='/admin/userPage.do'/>" class="sidebar-link"><span class="hide-menu">유저 관리</span></a></li>
+						<li class="sidebar-item"><a href="<c:url value='/admin/userList.do'/>" class="sidebar-link"><span class="hide-menu">유저 관리</span></a></li>
 						<li class="sidebar-item"><a href="<c:url value='/goods/goodsRegister.do'/>" class="sidebar-link"><span class="hide-menu">상품 관리</span></a></li>
 						<li class="sidebar-item"><a href="<c:url value='d'/>" class="sidebar-link"><span class="hide-menu">배송 관리</span></a></li>
 						<li class="sidebar-item"><a href="<c:url value='s'/>" class="sidebar-link"><span class="hide-menu">게시판 관리</span></a></li>

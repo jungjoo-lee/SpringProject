@@ -16,31 +16,34 @@ th, td {
 <div class="page-breadcrumb">
 	<h3 class="page-title text-truncate text-dark font-weight-medium">회원 목록</h3>
 </div>
-<div>
-	<div style="display: flex; justify-content: center; margin: 10px; padding: 15px;">
-		<form>
-			<select class="form-select" name="searchType" id="searchType" aria-label="Default select example" onchange="search_change()">
-				<option <c:if test="${searchType eq 'titleContents'}">selected</c:if> value="titleContents">제목 + 내용</option>
-				<option <c:if test="${searchType eq 'title'}">selected</c:if> value="title">제목</option>
-				<option <c:if test="${searchType eq 'content'}">selected</c:if> value="content">내용</option>
-				<option <c:if test="${searchType eq 'writer'}">selected</c:if> value="writer">글쓴이</option>
-			</select>
-            <div class="customize-input">
-            	<input class="form-control custom-shadow custom-radius border-0 bg-white" type="search" placeholder="Search" aria-label="Search">
-            	<i class="form-control-icon" data-feather="search"></i>
-			</div>
-			<button class="btn btn-outline-success" type="submit" style="display: flex; flex-direction: row; margin-left: 1rem"><i class="bi bi-search"></i>Search</button>
-		</form>
-	</div>
-	<div style="float: right;">
-		<select class="form-select" name="amountCount" id="amountCount" aria-label="Default select example" onchange="amount_change()">
-			<option <c:if test="${amount eq 10}">selected </c:if> value="10">10개씩보기</option>
-			<option <c:if test="${amount eq 30}">selected </c:if> value="30">30개씩보기</option>
-			<option <c:if test="${amount eq 50}">selected </c:if> value="50">50개씩보기</option>
-		</select>
-	</div>
-</div>
 <div class="container-fluid" style="justify-content: center; flex-direction: column;">
+	<div>
+		<div style="display: flex; justify-content: center; margin: 10px; padding: 15px;">
+			<form>
+				<select class="form-select" name="searchType" id="searchType" aria-label="Default select example">
+					<option value="">분류</option>
+					<option value="userid">아이디</option>
+					<option value="name1">이름</option>
+					<option value="sex">성별</option>
+					<option value="phone">연락처</option>
+					<option value="address">주소</option>
+					<option value="logincheck">로그인 가능 여부</option>
+				</select>
+	            <div class="customize-input">
+	            	<input class="form-control custom-shadow custom-radius border-0 bg-white" id="keyword" type="search" placeholder="Search" aria-label="Search">
+	            	<i class="form-control-icon" data-feather="search"></i>
+				</div>
+				<button class="btn btn-outline-success" id="searchButton" type="submit" style="display: flex; flex-direction: row; margin-left: 1rem"><i class="bi bi-search"></i>Search</button>
+			</form>
+		</div>
+		<div style="float: right;">
+			<select class="form-select" name="amount" id="amount" aria-label="Default select example">
+				<option value="10">10개씩보기</option>
+				<option value="30">30개씩보기</option>
+				<option value="50">50개씩보기</option>
+			</select>
+		</div>
+	</div>
 	<div>
 		<table class="table table-hover">
 			<thead>
@@ -100,42 +103,50 @@ function list(num) {
 			'Content-Type': 'application/json;charset=utf-8'
 		},
 		body: JSON.stringify({
-			num: num
+			num: num,
+			amount: amount_count,
+			searchType: searchType.value,
+			keyword: keyword.value
 		})
 	})
 	.then(response => response.json())
 	.then(jsonResult => {
-		if (jsonResult.status == true) {
-			console.log(jsonResult.listUsers);
-			let listUsers = jsonResult.listUsers;
-			let content = '';
-			let i = 0;
+		userList(jsonResult);
+	});
+}
 
-			listUsers.forEach(() => {
-				content += '<tr>';
-				content += '<td>' + listUsers[i].userid + '</td>';
-				content += '<td>' + listUsers[i].name + '</td>';
-				content += '<td>' + listUsers[i].sex + '</td>';
-				content += '<td>' + listUsers[i].phone + '</td>';
-				content += '<td>' + listUsers[i].address + '</td>';
-				if (listUsers[i].loginDateTime != null) {
-					content += '<td>' + listUsers[i].loginDateTime + '</td>';
-				} else {
-					content += '<td></td>';
-				}
-				content += '<td>' + listUsers[i++].loginCheck + '</td>';
-				content += '<td><input type="checkbox"></td>';
-				content += '</tr>';
-			});
-			document.querySelector("#list").innerHTML = content;
+function userList(jsonResult) {
+	if (jsonResult.status == true) {
+		let listUsers = jsonResult.listUsers;
+		let content = '';
+		let i = 0;
 
-			let pageVO = jsonResult.pageVO;
-			let pagecontent = '';
-
-			if (pageVO.prev) {
-				pagecontent += '<li class="page-item"><a class="page-link" id="Prev" href="javascript:list(' + ((jsonResult.pageVO.startPage) - 1) + ')">Prev</a></li>';
+		listUsers.forEach(() => {
+			content += '<tr>';
+			content += '<td>' + listUsers[i].userid + '</td>';
+			content += '<td>' + listUsers[i].name + '</td>';
+			content += '<td>' + listUsers[i].sex + '</td>';
+			content += '<td>' + listUsers[i].phone + '</td>';
+			content += '<td>' + listUsers[i].address + '</td>';
+			if (listUsers[i].loginDateTime != null) {
+				content += '<td>' + listUsers[i].loginDateTime + '</td>';
+			} else {
+				content += '<td></td>';
 			}
+			content += '<td>' + listUsers[i++].loginCheck + '</td>';
+			content += '<td><input type="checkbox"></td>';
+			content += '</tr>';
+		});
+		document.querySelector("#list").innerHTML = content;
 
+		let pageVO = jsonResult.pageVO;
+		let pagecontent = '';
+
+		if (pageVO.prev) {
+			pagecontent += '<li class="page-item"><a class="page-link" id="Prev" href="javascript:list(' + ((jsonResult.pageVO.startPage) - 1) + ')">Prev</a></li>';
+		}
+
+		if (jsonResult.pageVO.total >= 1) {
 			if ((jsonResult.pageVO.endPage % 10) == 0) {
 				for (let j = 0; j < 10; j++) {
 					pagecontent += '<li class="page-item">';
@@ -149,17 +160,36 @@ function list(num) {
 					pagecontent += '</li>';
 				}
 			}
-
-			if (pageVO.next) {
-				pagecontent += '<li class="page-item"><a class="page-link" id="Next" href="javascript:list(' + (jsonResult.pageVO.endPage / 10) + 1 + ')">Next</a></li>';
-			}
-			document.querySelector("#pagination").innerHTML = pagecontent;
-
-		} else {
-			alert(jsonResult.message);
 		}
-	});
+
+		if (pageVO.next) {
+			pagecontent += '<li class="page-item"><a class="page-link" id="Next" href="javascript:list(' + (jsonResult.pageVO.endPage / 10) + 1 + ')">Next</a></li>';
+		}
+		document.querySelector("#pagination").innerHTML = pagecontent;
+
+	} else {
+		alert(jsonResult.message);
+	}
 }
+
+let amount = document.getElementById("amount");
+let amount_count = 10;
+
+amount.addEventListener("change", () => {
+	amount_change();
+});
+
+function amount_change() {
+	amount_count = amount.value;
+	list(1);
+}
+
+let searchButton = document.getElementById("searchButton");
+
+searchButton.addEventListener("click", (e) => {
+  	e.preventDefault();
+  	list(1);
+});
 </script>
 </body>
 </html>

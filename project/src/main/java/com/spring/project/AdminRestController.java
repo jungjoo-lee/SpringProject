@@ -23,17 +23,27 @@ public class AdminRestController {
 	UserService userService;
 	
 	@RequestMapping(value = "/admin/userPage.do", method = RequestMethod.POST)
-	public @ResponseBody Map<String, Object> userPage(@RequestBody HashMap<String, Object> map) {
+	public @ResponseBody Map<String, Object> userPage(@RequestBody HashMap<String, String> map) {
 		logger.info("페이지 번호 : " + map);
+
+		int amount = Integer.parseInt(map.get("amount"));
+		int num = Integer.parseInt(map.get("num"));
+		String searchType = map.get("searchType");
+		String keyword = map.get("keyword");
 		
-		int amount = 10;
-		int num = (Integer) map.get("num");
-		int total = userService.totalUsers();
+		Map<String, Object> inpoMap = new HashMap<String, Object>();
+		inpoMap.put("searchType", searchType);
+		inpoMap.put("keyword", keyword);
+		
+		int total = userService.totalUsers(inpoMap);
 		PageVO pageVO = new PageVO(num, amount, total);
+		
+		inpoMap.put("pageVO", pageVO);
+		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 
 		try {
-			resultMap.put("listUsers", userService.listUsers(pageVO));
+			resultMap.put("listUsers", userService.listUsers(inpoMap));
 			resultMap.put("status", true);
 			resultMap.put("pageVO", pageVO);
 		} catch (Exception e) {

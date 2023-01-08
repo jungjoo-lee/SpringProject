@@ -15,9 +15,9 @@
 <input type="button" id="loginButton" value="로그인"><br/>
 <input type="reset" value="초기화">
 </form>
-
-<a href="<c:url value='/user/registerForm.do'/>">회원가입</a>|<a href="<c:url value='/user/findIdForm.do'/>">아이디 찾기</a>|<a href="<c:url value='/user/findPwForm.do'/>">비밀번호 찾기</a>
-
+<a href="<c:url value='/user/registerForm.do'/>">회원가입</a>|
+<a href="<c:url value='/user/findIdForm.do'/>">아이디 찾기</a>|
+<a href="<c:url value='/user/findPwForm.do'/>">비밀번호 찾기</a>
 <script type="text/javascript">
 let loginButton = document.getElementById("loginButton");
 

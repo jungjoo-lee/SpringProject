@@ -28,6 +28,13 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
+	@RequestMapping("/goods/test.do")
+	public String test() {
+		logger.info("회원가입 페이지");
+		
+		return "/goods/test";
+	}
+	
 	@RequestMapping("/user/registerForm.do")
 	public String registerForm() {
 		logger.info("회원가입 페이지");
@@ -77,6 +84,8 @@ public class UserController {
 			
 			if (vo != null && vo.getPwd().equals(map.get("pwd"))) {
 				if ("T".equals(vo.getAdmincheck())) {
+					session.setMaxInactiveInterval(-1);
+					session.setAttribute("adminLogin", true);
 					resultMap.put("status", true);
 					resultMap.put("message", "안녕하세요. 관리자님");
 					resultMap.put("url", "/project/admin/adminMain.do");
