@@ -44,6 +44,15 @@
 			<mvc:mapping path="/*/*/*.do"/> 
 			<beans:bean class="com.spring.project.common.interceptor.ViewNameInterceptor" />
 		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/admin/*.do"/> 
+			<beans:bean class="com.spring.project.common.interceptor.AdminInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/user/updateForm.do"/>
+			<mvc:mapping path="/user/view.do"/> 
+			<beans:bean class="com.spring.project.common.interceptor.LoginInterceptor" />
+		</mvc:interceptor>
 	</mvc:interceptors>
 	
 	<!-- 멀티파트 리졸버 -->

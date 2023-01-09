@@ -10,5 +10,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BoardFileVO {
-	private int num;
+	private int bf_no;
+	private int bno;
+	private String userid;
+	private String orgName;
+	private String realName;
+	private String content_type;
+	private long fileSize;
 }

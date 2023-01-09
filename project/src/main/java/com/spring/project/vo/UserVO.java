@@ -18,12 +18,15 @@ public class UserVO {
 	private String pwd;
 	private String name;
 	private String sex;
+	private Timestamp birthday;
 	private String phone;
 	private String address;
+	private String gno; // gname
+	private int point;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="Asia/Seoul")
-	private Timestamp loginDateTime;
+	private Timestamp regi_Date;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="Asia/Seoul")
-	private Timestamp regiDate;
-	private String loginCheck;
-	private String admincheck;
+	private Timestamp login_Date;
+	private String login_Check;
+	private String admin_check;
 }

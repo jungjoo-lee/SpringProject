@@ -13,10 +13,10 @@
 						<when test="searchType == 'sex'">where sex LIKE '%'|| #{keyword} || '%'</when>
 						<when test="searchType == 'phone'">where phone LIKE '%'|| #{keyword} || '%'</when>
 						<when test="searchType == 'address'">where address LIKE '%'|| #{keyword} || '%'</when>
-						<when test="searchType == 'logincheck'">where logincheck LIKE '%'|| #{keyword} || '%'</when>
+						<when test="searchType == 'logincheck'">where login_check LIKE '%'|| #{keyword} || '%'</when>
 					</choose>
 				</if>
-				order by regidate)a
+				order by regi_date)a
 			order by rn desc)
 		<![CDATA[where rn > #{pageVO.total} - (#{pageVO.currentPage} * #{pageVO.amount}) and rn <= #{pageVO.total} - ((#{pageVO.currentPage} - 1) * #{pageVO.amount})]]>
 	</select>
@@ -30,7 +30,7 @@
 				<when test="searchType == 'sex'">where sex LIKE '%'|| #{keyword} || '%'</when>
 				<when test="searchType == 'phone'">where phone LIKE '%'|| #{keyword} || '%'</when>
 				<when test="searchType == 'address'">where address LIKE '%'|| #{keyword} || '%'</when>
-				<when test="searchType == 'logincheck'">where logincheck LIKE '%'|| #{keyword} || '%'</when>
+				<when test="searchType == 'logincheck'">where login_check LIKE '%'|| #{keyword} || '%'</when>
 			</choose>
 		</if>
 	</select>

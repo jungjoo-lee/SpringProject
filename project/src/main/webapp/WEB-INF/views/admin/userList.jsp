@@ -66,8 +66,8 @@ th, td {
 					<td>${userVO.sex}</td>
 					<td>${userVO.phone}</td>
 					<td>${userVO.address}</td>
-					<td>${userVO.loginDateTime}</td>
-					<td>${userVO.loginCheck}</td>
+					<td>${userVO.login_Date}</td>
+					<td>${userVO.login_Check}</td>
 					<td><input type="checkbox"></td>
 				</tr>
 				</c:forEach>
@@ -129,11 +129,11 @@ function userList(jsonResult) {
 			content += '<td>' + listUsers[i].phone + '</td>';
 			content += '<td>' + listUsers[i].address + '</td>';
 			if (listUsers[i].loginDateTime != null) {
-				content += '<td>' + listUsers[i].loginDateTime + '</td>';
+				content += '<td>' + listUsers[i].login_Date + '</td>';
 			} else {
 				content += '<td></td>';
 			}
-			content += '<td>' + listUsers[i++].loginCheck + '</td>';
+			content += '<td>' + listUsers[i++].login_Check + '</td>';
 			content += '<td><input type="checkbox"></td>';
 			content += '</tr>';
 		});

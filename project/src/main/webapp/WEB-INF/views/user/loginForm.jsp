@@ -9,7 +9,7 @@
 <title>로그인</title>
 </head>
 <body>
-<form>
+<form action="<c:url value='/user/login.do'/>">
 아이디 <input type="text" name="userid" id="userid"><br/>
 비밀번호 <input type="password" name="pwd" id="pwd"><br/>
 <input type="button" id="loginButton" value="로그인"><br/>

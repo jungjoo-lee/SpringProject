@@ -27,8 +27,9 @@
 	<option value="018">018</option>
 	<option value="019">019</option>
 </select>-
-<input type="text" class="form-control" id="num2">-
-<input type="text" class="form-control" id="num3"><br/>
+<input type="text" class="form-control" id="num2" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength='4'>-
+<input type="text" class="form-control" id="num3" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength='4'><br/>
+생년월일 <input type="date"><br/>
 이메일 <input type="text" class="form-control" name="email1" placeholder="Email">
 <input type="text" class="form-control" name="email2" id="email2" placeholder="직접입력">
 <select name="email" id="email" title="직접입력">

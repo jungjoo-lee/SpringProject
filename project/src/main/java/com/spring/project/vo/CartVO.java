@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CommentVO {
-	private int num;
+public class CartVO {
+	private int cart_no;
+	private String userid;
+	private int goods_id;
 }

@@ -83,14 +83,14 @@ public class UserController {
 			logger.info("" + vo);
 			
 			if (vo != null && vo.getPwd().equals(map.get("pwd"))) {
-				if ("T".equals(vo.getAdmincheck())) {
+				if ("T".equals(vo.getAdmin_check())) {
 					session.setMaxInactiveInterval(-1);
 					session.setAttribute("adminLogin", true);
 					resultMap.put("status", true);
 					resultMap.put("message", "안녕하세요. 관리자님");
 					resultMap.put("url", "/project/admin/adminMain.do");
 				} else {
-					if("T".equals(vo.getLoginCheck())) {
+					if("T".equals(vo.getLogin_Check())) {
 						userService.loginTimeUpdate(map.get("userid"));
 						session.setMaxInactiveInterval(-1);
 						session.setAttribute("userLogin", true);

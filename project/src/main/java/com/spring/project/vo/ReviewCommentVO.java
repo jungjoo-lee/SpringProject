@@ -13,11 +13,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class VisitCountVO {
-	private int visit_id;
-    private String visit_ip;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="Asia/Seoul")
-    private Timestamp visit_time;
-    private String visit_refer;
-    private String visit_agent;
+public class ReviewCommentVO {
+	private int rc_num;
+	private int goods_id;
+	private int p_no;
+	private String writer;
+	private String comment;
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="Asia/Seoul")
+	private Timestamp date;
 }
