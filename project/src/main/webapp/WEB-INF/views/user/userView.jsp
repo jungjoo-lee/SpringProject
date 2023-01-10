@@ -13,12 +13,18 @@
 비밀번호 : ${userVO.pwd}<br/>
 이름 : ${userVO.name}<br/>
 성별 : ${userVO.sex}<br/>
+생일 : ${userVO.birthday}<br/>
 연락처 : ${userVO.phone}<br/>
+이메일 : ${userVO.email}<br/>
+우편번호 : ${userVO.postcode}<br/>
 주소 : ${userVO.address}<br/>
-로그인 시간 : ${userVO.loginDateTime}<br/>
-가입일자 : ${userVO.regiDate}<br/>
-로그인 가능 여부 : ${userVO.loginCheck}<br/>
-관리자 : ${userVO.admincheck}<br/>
+상세주소 : ${userVO.detailaddress}<br/>
+등급 : ${userVO.grade}<br/>
+포인트 : ${userVO.point}<br/>
+로그인 시간 : ${userVO.login_Date}<br/>
+가입일자 : ${userVO.regi_Date}<br/>
+로그인 가능 여부 : ${userVO.login_Check}<br/>
+관리자 : ${userVO.admin_check}<br/>
 <div id="deleteInfo" style="display: none;">
 	<form>
 		<input type="password" id="pwd"><input type="button" id="deleteButton" value="탈퇴하기">

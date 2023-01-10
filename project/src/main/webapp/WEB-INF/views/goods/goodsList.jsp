@@ -17,7 +17,7 @@
 					<div class="col-lg-2 col-md-6">
 						<!-- Card "data:image/png;base64,${images}" data:image/png;base64,${images}-->
 						<div class="card">
-							<img class="card-img-top img-fluid" src="<c:url value='/goods/goodsImage.do/${list.thumbnail}'/>"alt="Card image cap">
+							<img class="card-img-top img-fluid" src="<c:url value='/goods/goodsImage.do/${list.real_thumbnail}.png'/>"alt="Card image cap">
 							<div class="card-body">
 								<h4 class="card-title">${list.book_title}</h4>
 								<p class="card-text">${list.price}</p>

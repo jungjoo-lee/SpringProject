@@ -4,4 +4,8 @@ window.onload = () => {
 	document.querySelector
 	let num = document.getElementsByName("num");
 	
+	let resultPoint = document.querySelector("#price");
+	resultPoint.addEventListener("keyUp", () => {
+		alret(resultPoint.value);
+	});	
 }

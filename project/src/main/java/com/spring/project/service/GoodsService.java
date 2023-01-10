@@ -22,4 +22,8 @@ public class GoodsService {
 	public List<GoodsVO> listGoods(Map<String, Object> inpoMap) throws SQLException {
 		return goodsDAO.listGoods(inpoMap);
 	}
+	
+	public void register(GoodsVO vo) throws SQLException {
+		goodsDAO.register(vo);
+	}
 }

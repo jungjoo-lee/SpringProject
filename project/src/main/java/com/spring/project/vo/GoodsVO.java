@@ -1,5 +1,6 @@
 package com.spring.project.vo;
 
+import java.sql.Clob;
 import java.sql.Timestamp;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -17,6 +18,8 @@ import oracle.sql.CLOB;
 public class GoodsVO {
 	private int goods_id;
 	private String status_id; // status_name
+	private String cover;
+	private String real_cover;
 	private String thumbnail;
 	private String real_thumbnail;
 	private String book_title;
@@ -25,16 +28,13 @@ public class GoodsVO {
 	private String real_content_image;
 	private String author;
 	private String publisher;
-	private CLOB publisher_content;
-	private CLOB book_index;
-	private CLOB introduce;
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="Asia/Seoul")
-	private Timestamp release_date;
+	private String publisher_content;
+	private String book_index;
+	private String introduce;
+	private String release_date;
 	private String page_number;
 	private String book_size;
-	private String rating;
 	private String point;
-	private String buy_count;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="Asia/Seoul")
 	private Timestamp regidate;
 }

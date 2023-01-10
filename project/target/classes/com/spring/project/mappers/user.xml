@@ -36,7 +36,9 @@
 	</select>
 	
 	<select id="findByID" resultType="com.spring.project.vo.UserVO">
-		<![CDATA[select * from user_tbl where userid = #{userid}]]>
+		<![CDATA[
+		select * from user_tbl u inner join grade_tbl g on u.gno = g.gno where userid = #{userid}
+		]]>
 	</select>
 	
 	<update id="loginTimeUpdate">

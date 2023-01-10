@@ -4,13 +4,18 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
+import java.sql.Clob;
+import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.jdbc.core.JdbcTemplate;
 
 public class Util {
 	static final String bookThumbnailPath = "C://book//thumbnail//";
 	static final String bookImagePath = "C://book//image//";
 	static final String bookContentPath = "C://book//content//";
+	private JdbcTemplate jdbcTemplate;
 
 	public void thumbnail(HttpServletResponse res, String imageName) {
 		returnImage(res, bookThumbnailPath, imageName);
@@ -48,4 +53,18 @@ public class Util {
 			e.printStackTrace();
 		}
 	}
+	
+	public Clob stringToClob(String str) {
+		if (null == str) {
+            return null;
+        } else {
+            try {
+                java.sql.Clob c = new javax.sql.rowset.serial.SerialClob(
+                        str.toCharArray());
+                return c;
+            } catch (Exception e) {
+                return null;
+            }
+        }
+    }
 }
