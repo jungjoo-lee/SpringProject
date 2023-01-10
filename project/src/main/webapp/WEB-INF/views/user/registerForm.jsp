@@ -29,7 +29,7 @@
 </select>-
 <input type="text" class="form-control" id="num2" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength='4'>-
 <input type="text" class="form-control" id="num3" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength='4'><br/>
-생년월일 <input type="date"><br/>
+생년월일 <input type="date" id="birthday"><br/>
 이메일 <input type="text" class="form-control" name="email1" placeholder="Email">
 <input type="text" class="form-control" name="email2" id="email2" placeholder="직접입력">
 <select name="email" id="email" title="직접입력">
@@ -46,11 +46,9 @@
 	<option value="@korea.com">korea.com</option>
 	<option value="@freechal.com">freechal.com</option>
 </select><br/>
-<!-- 고치기 -->
-주소 <input type="text" name="address" id="address"><br/>
-<input id="member_post"  type="text" placeholder="우편 번호" readonly"><input type="button" id="findAddress" value="검색"> <br/>
-주소 <input id="member_addr" type="text" class="form-control" placeholder="주소" readonly><br/>
-나머지 <input type="text" class="form-control" placeholder="상세주소"><br/>
+<input id="postcode"  type="text" placeholder="우편 번호" readonly"><input type="button" id="findAddress" value="검색"> <br/>
+주소 <input id="address" type="text" class="form-control" placeholder="주소" readonly><br/>
+나머지 <input type="text" id="detailaddress" class="form-control" placeholder="상세주소"><br/>
 <input type="button" id="regiButton" value="회원가입">
 <input type="reset" value="초기화">
 </form>
@@ -77,7 +75,11 @@ function register() {
 			name: name1.value,
 			sex: sexValue,
 			phone: num1.value + "-" + num2.value + "-" + num3.value,
-			address: address.value
+			birthday : birthday.value,
+			email: email1.value + email2.value,
+			postcode : postcode.value,
+			address: address.value,
+			detailaddress : detailaddress.value
 		})
 	})
 	.then(response => response.json())

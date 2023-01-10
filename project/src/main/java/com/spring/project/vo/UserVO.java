@@ -20,7 +20,10 @@ public class UserVO {
 	private String sex;
 	private Timestamp birthday;
 	private String phone;
+	private String email;
+	private int postcode;
 	private String address;
+	private String detailaddress;
 	private String gno; // gname
 	private int point;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="Asia/Seoul")

@@ -13,8 +13,12 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		HttpSession session = request.getSession();
 		Boolean result = (Boolean) session.getAttribute("adminLogin");
-
-		if (result == null) {
+		UserVO userVO = (UserVO) session.getAttribute("userVO");
+		
+		if (result == null && userVO != null) {
+			response.sendRedirect("/project/main/userMain.do");
+			return false;
+		} else if (result == null && userVO == null) {
 			response.sendRedirect("/project/user/loginForm.do");
 			return false;
 		}

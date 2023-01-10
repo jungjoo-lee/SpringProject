@@ -51,4 +51,18 @@ public class AdminController {
 		
 		return "/admin/userList";
 	}
+	
+	@RequestMapping(value = "/admin/goodsList.do", method = RequestMethod.GET)
+	public String goodsList(Model model) {
+		logger.info("상품 리스트");
+		
+		return "/admin/goodsList";
+	}
+	
+	@RequestMapping(value = "/admin/goodsRegisterForm.do", method = RequestMethod.GET)
+	public String goodsRegister(Model model) {
+		logger.info("상품 등록 페이지");
+		
+		return "/admin/goodsRegisterForm";
+	}
 }

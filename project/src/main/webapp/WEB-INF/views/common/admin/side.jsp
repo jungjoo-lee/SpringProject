@@ -22,7 +22,7 @@
 					
 					<ul aria-expanded="false" class="collapse  first-level base-level-line">
 						<li class="sidebar-item"><a href="<c:url value='/admin/userList.do'/>" class="sidebar-link"><span class="hide-menu">유저 관리</span></a></li>
-						<li class="sidebar-item"><a href="<c:url value='/goods/goodsRegister.do'/>" class="sidebar-link"><span class="hide-menu">상품 관리</span></a></li>
+						<li class="sidebar-item"><a href="<c:url value='/admin/goodsList.do'/>" class="sidebar-link"><span class="hide-menu">상품 관리</span></a></li>
 						<li class="sidebar-item"><a href="<c:url value='d'/>" class="sidebar-link"><span class="hide-menu">배송 관리</span></a></li>
 						<li class="sidebar-item"><a href="<c:url value='s'/>" class="sidebar-link"><span class="hide-menu">게시판 관리</span></a></li>
 						<li class="sidebar-item"><a href="<c:url value='/goods/Sales.do'/>" class="sidebar-link"><span class="hide-menu">매출 관리</span></a></li>
@@ -149,7 +149,7 @@
 				<li class="nav-small-cap"><span class="hide-menu">Extra</span></li>
 				<li class="sidebar-item"><a class="sidebar-link sidebar-link" href="../../docs/docs.html" aria-expanded="false">
 					<i data-feather="edit-3" class="feather-icon"></i><span class="hide-menu">Documentation</span></a></li>
-				<li class="sidebar-item"><a class="sidebar-link sidebar-link" href="authentication-login1.html" aria-expanded="false">
+				<li class="sidebar-item"><a class="sidebar-link sidebar-link" href="<c:url value='/user/logout.do'/>" aria-expanded="false">
 					<i data-feather="log-out" class="feather-icon"></i><span class="hide-menu">Logout</span></a></li>
 			</ul>
 		</nav>
