@@ -36,10 +36,20 @@
 	</select>
 	
 	<insert id="register">
-		insert into goods_tbl(GOODS_ID, STATUS_ID, COVER, REAL_COVER, THUMBNAIL, REAL_THUMBNAIL, BOOK_TITLE, PRICE, CONTENT_IMAGE, REAL_CONTENT_IMAGE, AUTHOR,
-							PUBLISHER, PUBLISHER_CONTENT, BOOK_INDEX, INTRODUCE, RELEASE_DATE, PAGE_NUMBER, BOOK_SIZE, POINT, REGIDATE)
-		values (GOODS_NO_SEQ.NEXTVAL, #{status_id}, #{cover}, #{real_cover}, #{thumbnail}, #{real_thumbnail}, #{book_title},
-				#{price}, #{content_image}, #{real_content_image}, #{author}, #{publisher}, #{publisher_content}, #{book_index}, #{introduce}, TO_DATE(#{release_date}),
+		insert into goods_tbl(GOODS_ID, STATUS_ID, COVER, REAL_COVER, THUMBNAIL, REAL_THUMBNAIL, BOOK_TITLE, PRICE,
+		 <if test="content_image != null and content_image !=''">
+		 CONTENT_IMAGE, REAL_CONTENT_IMAGE,
+		 </if>
+		  AUTHOR, PUBLISHER, PUBLISHER_CONTENT, BOOK_INDEX, INTRODUCE, RELEASE_DATE, PAGE_NUMBER, BOOK_SIZE, POINT, REGIDATE)
+		values (GOODS_NO_SEQ.NEXTVAL, #{status_id}, #{cover}, #{real_cover}, #{thumbnail}, #{real_thumbnail}, #{book_title}, #{price}, 
+				<if test="content_image != null and content_image !=''">
+				#{content_image}, #{real_content_image},
+				</if>
+				#{author}, #{publisher}, #{publisher_content, jdbcType=CLOB}, #{book_index, jdbcType=CLOB}, #{introduce, jdbcType=CLOB}, TO_DATE(#{release_date}),
 				#{page_number}, #{book_size}, #{point}, sysdate)
 	</insert>
+	
+	<select id="goodsView" resultType="com.spring.project.vo.GoodsVO">
+		select * from goods_tbl inner join GOODS_STATUS_TBL on goods_tbl.STATUS_ID = GOODS_STATUS_TBL.STATUS_ID where goods_id = #{goods_id}
+	</select>
 </mapper>

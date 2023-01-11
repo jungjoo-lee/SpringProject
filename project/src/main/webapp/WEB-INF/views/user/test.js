@@ -8,4 +8,8 @@ window.onload = () => {
 	resultPoint.addEventListener("keyUp", () => {
 		alret(resultPoint.value);
 	});	
+	
+	let nowPage = document.getElementsByClassName("'" + num + "'");
+	nowPage.style.color = '#fff';
+	nowPage.style.backgroundColor = '#5f76e8';
 }

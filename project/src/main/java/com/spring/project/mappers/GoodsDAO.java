@@ -13,4 +13,5 @@ public interface GoodsDAO {
 	List<GoodsVO> listGoods(Map<String, Object> inpoMap) throws SQLException;
 	int totalGoods(Map<String, Object> inpoMap) throws SQLException;
 	void register(GoodsVO vo) throws SQLException;
+	GoodsVO goodsView(int goods_id) throws SQLException;
 }

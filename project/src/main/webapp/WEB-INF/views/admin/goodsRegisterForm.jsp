@@ -20,7 +20,7 @@
 	<h4 class="card-title mb-3">상품 등록</h4>
 </div>
 <div class="card-body">
-	<form action="<c:url value='/admin/goodsRegister.do'/>" name="uploadForm" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+	<form action="<c:url value='/admin/goodsRegister.do'/>" name="uploadForm"  id="uploadForm" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 		<table class="table table-bordered">
 			<tr><td>책 제목</td><td><input type="text" id="title" name="title" placeholder="책 제목"></td>
 			<td>출판사</td><td><input type="text" id="publisher" name="publisher" placeholder="출판사"></td></tr>
@@ -112,8 +112,9 @@ inputPrice.addEventListener("keyup", () => {
 	}
 });
 
-let regiButton = document.getElementById("regiButton");
-regiButton.addEventListener("submit", (e) => {
+let uploadForm = document.querySelector("#uploadForm");
+
+uploadForm.addEventListener("submit", (e) => {
   	e.preventDefault();
   	register();
 });

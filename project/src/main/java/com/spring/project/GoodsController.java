@@ -1,11 +1,5 @@
 package com.spring.project;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,17 +25,14 @@ import com.spring.project.vo.PageVO;
 @Controller
 public class GoodsController {	
 	private static final Logger logger = LoggerFactory.getLogger(GoodsController.class);
-	static final String bookThumbnailPath = "C://book//thumbnail//";
-	static final String bookImagePath = "C://book//image//";
-	static final String bookContentPath = "C://book//content//";
 	
 	@Autowired
 	GoodsService goodsService;
 	
-	@RequestMapping("/goods/goodsImage.do/{filename}")
-	public @ResponseBody void goodsImage(HttpServletRequest req, HttpServletResponse res, @PathVariable("filename") String filename) {
+	@RequestMapping("/goods/goodsImage.do/{filename}/{type}")
+	public @ResponseBody void goodsImage(HttpServletRequest req, HttpServletResponse res, @PathVariable String filename, @PathVariable int type) {
 		Util util = new Util();
-		util.thumbnail(res, filename);
+		util.returnImage(res, filename, type);
 	}
 	
 	@RequestMapping("/goods/goodsList.do")
@@ -54,8 +45,6 @@ public class GoodsController {
 		inpoMap.put("keyword", "");
 		
 		List<GoodsVO> list = new ArrayList<>();
-		List<String> stringList = new ArrayList<>();
-		Util util = new Util();
 
 		try {			
 			int total = goodsService.totalGoods(inpoMap);
@@ -77,5 +66,19 @@ public class GoodsController {
 		logger.info("상품 목록");
 		
 		return "/goods/goodsRegisterForm";
+	}
+	
+	@RequestMapping("/goods/goodsView.do/{goods_id}")
+	public String goodsView(@PathVariable("goods_id") int goods_id, Model model) {
+		logger.info("상품 상세보기");
+		
+		try {
+			model.addAttribute("vo", goodsService.goodsView(goods_id));
+			logger.info("" + goodsService.goodsView(goods_id));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "/goods/goodsView";
 	}
 }

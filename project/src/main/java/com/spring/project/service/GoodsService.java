@@ -26,4 +26,8 @@ public class GoodsService {
 	public void register(GoodsVO vo) throws SQLException {
 		goodsDAO.register(vo);
 	}
+	
+	public GoodsVO goodsView(int goods_id) throws SQLException {
+		return goodsDAO.goodsView(goods_id);
+	}
 }

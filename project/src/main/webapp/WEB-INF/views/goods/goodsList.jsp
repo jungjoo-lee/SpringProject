@@ -17,59 +17,15 @@
 					<div class="col-lg-2 col-md-6">
 						<!-- Card "data:image/png;base64,${images}" data:image/png;base64,${images}-->
 						<div class="card">
-							<img class="card-img-top img-fluid" src="<c:url value='/goods/goodsImage.do/${list.real_thumbnail}.png'/>"alt="Card image cap">
+							<img class="card-img-top img-fluid" src="<c:url value='/goods/goodsImage.do/${list.real_thumbnail}.png/1'/>"alt="Card image cap">
 							<div class="card-body">
 								<h4 class="card-title">${list.book_title}</h4>
 								<p class="card-text">${list.price}</p>
-								<a href="javascript:void(0)" class="btn btn-primary">Go	somewhere</a>
+								<a href="<c:url value='/goods/goodsView.do/${list.goods_id}'/>" class="btn btn-primary">보러가기</a>
 							</div>
 						</div>
 					</div>
 				</c:forEach>
-					<div class="col-lg-2 col-md-6">
-						<!-- Card -->
-						<div class="card">
-							<img class="card-img-top img-fluid"	src="<c:url value='/resources/images/img2.jpg'/>" alt="Card image cap">
-							<div class="card-body">
-								<h4 class="card-title">Card title</h4>
-								<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-								<a href="javascript:void(0)" class="btn btn-primary">Go	somewhere</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-2 col-md-6">
-						<!-- Card -->
-						<div class="card">
-							<img class="card-img-top img-fluid"	src="<c:url value='/resources/images/img3.jpg'/>" alt="Card image cap">
-							<div class="card-body">
-								<h4 class="card-title">Card title</h4>
-								<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-								<a href="javascript:void(0)" class="btn btn-primary">Go	somewhere</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-2 col-md-6 img-fluid">
-						<!-- Card -->
-						<div class="card">
-							<img class="card-img-top img-fluid"	src="<c:url value='/resources/images/img4.jpg'/>" alt="Card image cap">
-							<div class="card-body">
-								<h4 class="card-title">Card title</h4>
-								<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-								<a href="javascript:void(0)" class="btn btn-primary">Go	somewhere</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-2 col-md-6 img-fluid">
-						<!-- Card -->
-						<div class="card">
-							<img class="card-img-top img-fluid"	src="<c:url value='/resources/images/img5.jpg'/>" alt="Card image cap">
-							<div class="card-body">
-								<h4 class="card-title">Card title</h4>
-								<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-								<a href="javascript:void(0)" class="btn btn-primary">Go	somewhere</a>
-							</div>
-						</div>
-					</div>
 				</div>
 			</div>
 		</div>

@@ -82,10 +82,9 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/admin/goodsRegister.do", method = RequestMethod.POST)
-	public String goodsRegister(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
+	public @ResponseBody Map<String, Object> goodsRegister(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
 		logger.info("상품 등록 페이지");
 		Map<String, Object> resultMap = new HashMap<>();
-		Util util = new Util();
 		
 		try {
 			Map<String, String> map = new HashMap<>();
@@ -93,12 +92,14 @@ public class AdminController {
 			
 			while(en.hasMoreElements()) {
 				String key = (String) en.nextElement();
-				map.put(key, URLDecoder.decode(multipartRequest.getParameter(key), "UTF8"));
+				String tmp = multipartRequest.getParameter(key).replace("%", "%25");
+				map.put(key, URLDecoder.decode(tmp, "UTF8"));
+				map.get(key).replace("%25", "%");
 			}
 			
 			GoodsVO vo = GoodsVO.builder()
 					.goods_id(0)
-					.status_id(map.get("status_id"))
+					.status_name(map.get("status_id"))
 					.book_title(map.get("title"))
 					.price(Integer.parseInt(map.get("price")))
 					.author(map.get("author"))
@@ -107,7 +108,7 @@ public class AdminController {
 					.book_index(map.get("book_index"))
 					.introduce(map.get("introduce"))
 					.release_date(map.get("release_date"))
-					.page_number(map.get("page_number"))
+					.page_number(Integer.parseInt(map.get("page_number")))
 					.book_size(map.get("book_size"))
 					.point(map.get("point")).build();
 			
@@ -143,11 +144,18 @@ public class AdminController {
 					}
 				}
 			}
-			goodsService.register(vo);		
+			logger.info("" + vo);
+			goodsService.register(vo);
+			resultMap.put("status", true);
+			resultMap.put("message", "상품 등록 성공");
+			resultMap.put("url", "/project/admin/goodsList.do");		
+			
 		} catch (Exception e) {
 			e.printStackTrace();
+			resultMap.put("status", false);
+			resultMap.put("message", "오류");
 		}
 		
-		return "redirect:/admin/goodsList.do";
+		return resultMap;
 	}
 }

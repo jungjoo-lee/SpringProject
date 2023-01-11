@@ -15,21 +15,25 @@ public class Util {
 	static final String bookThumbnailPath = "C://book//thumbnail//";
 	static final String bookImagePath = "C://book//image//";
 	static final String bookContentPath = "C://book//content//";
-	private JdbcTemplate jdbcTemplate;
 
-	public void thumbnail(HttpServletResponse res, String imageName) {
-		returnImage(res, bookThumbnailPath, imageName);
+	public void returnImage(HttpServletResponse res, String imageName, int type) {
+		switch (type) {
+			case 1 : {
+				transformImage(res, bookThumbnailPath, imageName);
+				break;
+			}
+			case 2 : {
+				transformImage(res, bookImagePath, imageName);
+				break;
+			}
+			case 3 : {
+				transformImage(res, bookContentPath, imageName);
+				break;
+			}
+		}
 	}
 	
-	public void bookimage(HttpServletResponse res, String imageName) {
-		returnImage(res, bookImagePath, imageName);
-	}
-	
-	public void content(HttpServletResponse res, String imageName) {
-		returnImage(res, bookContentPath, imageName);
-	}
-	
-	private void returnImage(HttpServletResponse res, String path, String imageName) {
+	private void transformImage(HttpServletResponse res, String path, String imageName) {
 		File file = new File(path + imageName);
 		
 		try {

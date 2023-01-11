@@ -1,6 +1,5 @@
 package com.spring.project.vo;
 
-import java.sql.Clob;
 import java.sql.Timestamp;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -9,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import oracle.sql.CLOB;
 
 @Data
 @Builder
@@ -17,7 +15,7 @@ import oracle.sql.CLOB;
 @AllArgsConstructor
 public class GoodsVO {
 	private int goods_id;
-	private String status_id; // status_name
+	private String status_name; // status_name
 	private String cover;
 	private String real_cover;
 	private String thumbnail;
@@ -32,7 +30,7 @@ public class GoodsVO {
 	private String book_index;
 	private String introduce;
 	private String release_date;
-	private String page_number;
+	private int page_number;
 	private String book_size;
 	private String point;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="Asia/Seoul")

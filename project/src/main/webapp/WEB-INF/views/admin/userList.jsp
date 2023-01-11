@@ -10,6 +10,12 @@
 th, td {
 	text-align: center;
 }
+
+.status {
+	color: #fff;
+	background-color: #5f76e8;
+}
+
 </style>
 </head>
 <body>
@@ -79,7 +85,7 @@ th, td {
 		<nav aria-label="Page navigation example">
 			<ul class="pagination" id="pagination">
 				<c:if test="${ pageVO.prev }">
-					<li class="page-item"><a class="page-link" id="Prev" href="javascript:list(${num-1})">Prev</a></li>
+					<li class="page-item"><a class="page-link" id="Prev">Prev</a></li>
 				</c:if>
 				<c:forEach var="num" begin="${ pageVO.startPage }" end="${ pageVO.endPage }">
 					<li class="page-item">
@@ -87,7 +93,7 @@ th, td {
 					</li>
 				</c:forEach>
 				<c:if test="${ pageVO.next }">
-					<li class="page-item"><a class="page-link" id="Next" href="javascript:list(${num+1})">Next</a></li>
+					<li class="page-item"><a class="page-link" id="Next" href="javascript:list(${11})">Next</a></li>
 				</c:if>
 			</ul>
 		</nav>
@@ -111,11 +117,11 @@ function list(num) {
 	})
 	.then(response => response.json())
 	.then(jsonResult => {
-		userList(jsonResult);
+		userList(jsonResult, num);
 	});
 }
 
-function userList(jsonResult) {
+function userList(jsonResult, num) {
 	if (jsonResult.status == true) {
 		let listUsers = jsonResult.listUsers;
 		let content = '';
@@ -141,6 +147,7 @@ function userList(jsonResult) {
 
 		let pageVO = jsonResult.pageVO;
 		let pagecontent = '';
+		let liid = 0;
 
 		if (pageVO.prev) {
 			pagecontent += '<li class="page-item"><a class="page-link" id="Prev" href="javascript:list(' + ((jsonResult.pageVO.startPage) - 1) + ')">Prev</a></li>';
@@ -149,14 +156,18 @@ function userList(jsonResult) {
 		if (jsonResult.pageVO.total >= 1) {
 			if ((jsonResult.pageVO.endPage % 10) == 0) {
 				for (let j = 0; j < 10; j++) {
-					pagecontent += '<li class="page-item">';
-					pagecontent += '<a class="page-link" id="' + (jsonResult.startPage + j) + '" href="javascript:list(' + (jsonResult.pageVO.startPage + j) + ')">' + (jsonResult.pageVO.startPage + j) + '</a>';
+					liid = jsonResult.pageVO.startPage + j;
+					
+					pagecontent += '<li class="page-item" id="li' + liid + '">';
+					pagecontent += '<a class="page-link" id=' + liid + ' href="javascript:list(' + (jsonResult.pageVO.startPage + j) + ')">' + (jsonResult.pageVO.startPage + j) + '</a>';
 					pagecontent += '</li>';
 				}
 			} else {
 				for (let j = 0; j < (jsonResult.pageVO.endPage % 10); j++) {
+					liid = jsonResult.startPage + j;
+					
 					pagecontent += '<li class="page-item">';
-					pagecontent += '<a class="page-link" id="' + (jsonResult.startPage + j) + '" href="javascript:list(' + (jsonResult.pageVO.startPage + j) + ')">' + (jsonResult.pageVO.startPage + j) + '</a>';
+					pagecontent += '<a class="page-link" id=' + liid + ' href="javascript:list(' + (jsonResult.pageVO.startPage + j) + ')">' + (jsonResult.pageVO.startPage + j) + '</a>';
 					pagecontent += '</li>';
 				}
 			}
@@ -170,6 +181,10 @@ function userList(jsonResult) {
 	} else {
 		alert(jsonResult.message);
 	}
+	
+	let nowPage = document.querySelector('nowPage');
+	document.getElementsByClassName('nowPage').style.backgroundColor('#5f76e8');
+	document.getElementsByClassName('nowPage').style.color = 'white';
 }
 
 let amount = document.getElementById("amount");
