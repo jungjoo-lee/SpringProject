@@ -138,13 +138,12 @@ public class AdminController {
 						vo.setReal_cover(coverName);
 						
 						File thumbFile = new File(String.valueOf("C:\\book\\thumbnail\\" + thumbnail));
-						Thumbnails.of(file).size(220, 270).outputFormat("png").toFile(thumbFile);
+						Thumbnails.of(file).size(140, 210).outputFormat("png").toFile(thumbFile);
 						vo.setReal_thumbnail(thumbnail);
 						vo.setThumbnail(mFile.getOriginalFilename().substring(0, mFile.getOriginalFilename().indexOf(".")) + ".png");
 					}
 				}
 			}
-			logger.info("" + vo);
 			goodsService.register(vo);
 			resultMap.put("status", true);
 			resultMap.put("message", "상품 등록 성공");

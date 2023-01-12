@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -20,7 +21,7 @@
 							<img class="card-img-top img-fluid" src="<c:url value='/goods/goodsImage.do/${list.real_thumbnail}.png/1'/>"alt="Card image cap">
 							<div class="card-body">
 								<h4 class="card-title">${list.book_title}</h4>
-								<p class="card-text">${list.price}</p>
+								<p class="card-text"><fmt:formatNumber value="${list.price}" type="number"/></p>
 								<a href="<c:url value='/goods/goodsView.do/${list.goods_id}'/>" class="btn btn-primary">보러가기</a>
 							</div>
 						</div>

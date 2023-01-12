@@ -182,9 +182,9 @@ function userList(jsonResult, num) {
 		alert(jsonResult.message);
 	}
 	
-	let nowPage = document.querySelector('nowPage');
+	/* let nowPage = document.querySelector('nowPage');
 	document.getElementsByClassName('nowPage').style.backgroundColor('#5f76e8');
-	document.getElementsByClassName('nowPage').style.color = 'white';
+	document.getElementsByClassName('nowPage').style.color = 'white'; */
 }
 
 let amount = document.getElementById("amount");

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.project.mappers.CartDAO">	
+	<insert id="cartRegister">
+		INSERT INTO CART_TBL values (CART_NO_SEQ.NEXTVAL, #{userid}, #{goods_id}, #{count}, SYSDATE)
+	</insert>
+	
+	<select id="cartList" resultType="com.spring.project.vo.CartVO">
+		select * from cart_tbl inner join goods_tbl on cart_tbl.goods_id = goods_tbl.goods_id where userid = #{userid}
+	</select>
+	
+	<delete id="deleteCart">
+		delete from cart_tbl where cart_no = #{cart_no}
+	</delete>
+</mapper>

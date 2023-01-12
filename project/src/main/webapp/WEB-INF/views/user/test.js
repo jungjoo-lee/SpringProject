@@ -12,4 +12,19 @@ window.onload = () => {
 	let nowPage = document.getElementsByClassName("'" + num + "'");
 	nowPage.style.color = '#fff';
 	nowPage.style.backgroundColor = '#5f76e8';
+	
+	var eventPlus = document.getElementsByName("plus");
+	
+	
+	
+	
+	var eventTarget = document.getElementsByClassName('btn_delete')
+
+for (var i = 0; i < eventTarget.length; i++) {
+	eventTarget[i].addEventListener('click', function() {
+		var parent = document.querySelector('#cartTable tbody');
+		parent.removeChild(this.parentElement.parentElement);
+		i--;
+	})
+}
 }
