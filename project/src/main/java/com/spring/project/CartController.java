@@ -73,13 +73,31 @@ public class CartController {
 	@RequestMapping("/cart/deleteCart.do")
 	public @ResponseBody Map<String, Object> deleteCart(@RequestBody Map<String, String> map) {
 		logger.info("장바구니 삭제");
-		logger.info("" + map);
+
 		Map<String, Object> resultMap = new HashMap<>();
 		
 		try {
 			cartService.deleteCart(Integer.parseInt(map.get("cart_no")));
 			resultMap.put("status", true);
 			resultMap.put("message", "삭제 되었습니다.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultMap.put("status", false);
+			resultMap.put("message", "오류");
+		}
+		
+		return resultMap;
+	}
+	
+	@RequestMapping("/cart/updateCart.do")
+	public @ResponseBody Map<String, Object> updateCart(@RequestBody Map<String, String> map) {
+		logger.info("장바구니 수정");
+
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		try {
+			cartService.updateCart(map);
+			resultMap.put("status", true);
 		} catch (Exception e) {
 			e.printStackTrace();
 			resultMap.put("status", false);

@@ -50,7 +50,7 @@
 		</mvc:interceptor>
 		<mvc:interceptor>
 			<mvc:mapping path="/user/updateForm.do"/>
-			<mvc:mapping path="/user/view.do"/> 
+			<mvc:mapping path="/user/userView.do"/> 
 			<beans:bean class="com.spring.project.common.interceptor.LoginInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>

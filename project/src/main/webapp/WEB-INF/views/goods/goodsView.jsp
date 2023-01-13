@@ -12,7 +12,8 @@
 책 번호 : ${vo.goods_id}<br/>
 분류 : ${vo.status_name}<br/>
 <h1>책 제목 : ${vo.book_title}</h1><br/>
-가격 : ${vo.price}<br/>
+원가 : ${vo.price}<br/>
+가격 : ${vo.price - (vo.price * (userVO.discount / 100))}<br/>
 포인트 : ${vo.point}<br/>
 저자 : ${vo.author}<br/>
 출판사 : ${vo.publisher}<br/>

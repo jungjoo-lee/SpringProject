@@ -1,6 +1,7 @@
 package com.spring.project.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,5 +24,17 @@ public class CartService {
 	
 	public void deleteCart(int cart_no) {
 		cartDAO.deleteCart(cart_no);
+	}
+	
+	public void updateCart(Map<String, String> map) {
+		cartDAO.updateCart(map);
+	}
+	
+	public List<CartVO> selectList(String userid) {
+		return cartDAO.selectList(userid);
+	}
+	
+	public void completeOrder(List<Integer> list) {
+		cartDAO.completeOrder(list);
 	}
 }

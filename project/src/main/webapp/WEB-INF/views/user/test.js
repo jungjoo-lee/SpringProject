@@ -15,8 +15,8 @@ window.onload = () => {
 	
 	var eventPlus = document.getElementsByName("plus");
 	
-	
-	
+	ck.for
+	document.getElementsByName
 	
 	var eventTarget = document.getElementsByClassName('btn_delete')
 

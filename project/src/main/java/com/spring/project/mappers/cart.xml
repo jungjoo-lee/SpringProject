@@ -12,4 +12,18 @@
 	<delete id="deleteCart">
 		delete from cart_tbl where cart_no = #{cart_no}
 	</delete>
+	
+	<update id="updateCart">
+		update cart_tbl set select_check = #{select_check} where cart_no = #{cart_no}
+	</update>
+	
+	<select id="selectList" resultType="com.spring.project.vo.CartVO">
+		select * from 
+			(select * from cart_tbl inner join goods_tbl on cart_tbl.goods_id = goods_tbl.goods_id where userid = #{userid})
+			where select_check = 'T'
+	</select>
+	
+	<delete id="completeOrder">
+		delete from cart_tbl where userid = #{userid} and cart_no = #{cart_no}
+	</delete>
 </mapper>

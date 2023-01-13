@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +22,7 @@ import com.spring.project.service.GoodsService;
 import com.spring.project.util.Util;
 import com.spring.project.vo.GoodsVO;
 import com.spring.project.vo.PageVO;
+import com.spring.project.vo.UserVO;
 
 @Controller
 public class GoodsController {	
@@ -69,11 +71,14 @@ public class GoodsController {
 	}
 	
 	@RequestMapping("/goods/goodsView.do/{goods_id}")
-	public String goodsView(@PathVariable("goods_id") int goods_id, Model model) {
+	public String goodsView(@PathVariable("goods_id") int goods_id, Model model, HttpServletRequest req) {
 		logger.info("상품 상세보기");
 		
 		try {
+			HttpSession session = req.getSession();
+			UserVO userVO = (UserVO) session.getAttribute("userVO");
 			model.addAttribute("vo", goodsService.goodsView(goods_id));
+			model.addAttribute("userVO", userVO);
 			logger.info("" + goodsService.goodsView(goods_id));
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,5 +1,7 @@
 package com.spring.project.common.interceptor;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -15,7 +17,10 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		UserVO userVO = (UserVO) session.getAttribute("userVO");
 
 		if (userVO == null) {
-			response.sendRedirect("/project/user/loginForm.do");
+			PrintWriter out = response.getWriter();
+			response.setContentType("text/html; charset=utf-8");
+			out.println("<script>alert('로그인 해주세요');location.href = '/project/user/loginForm.do';</script>");
+			
 			return false;
 		}
 		return true;
