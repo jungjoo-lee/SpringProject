@@ -1,10 +1,13 @@
 package com.spring.project;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -17,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.spring.project.service.MailSendService;
 import com.spring.project.service.UserService;
-import com.spring.project.service.VisitService;
 import com.spring.project.vo.UserVO;
 
 @Controller
@@ -27,6 +30,9 @@ public class UserController {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	MailSendService mailSendService;
 	
 	@RequestMapping("/goods/test.do")
 	public String test() {
@@ -43,13 +49,26 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/user/register.do", method = RequestMethod.POST)
-	public @ResponseBody Map<String, Object> register(@RequestBody UserVO vo) {
+	public @ResponseBody Map<String, Object> register(@RequestBody Map<String, String> map) {
 		logger.info("회원가입");
+		logger.info("" + map);
 		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
+		UserVO vo = UserVO.builder()
+				.userid(map.get("userid"))
+				.pwd(map.get("pwd"))
+				.name(map.get("name"))
+				.sex(map.get("sex"))
+				.phone(map.get("phone"))
+				.birthday(map.get("birthday"))
+				.email(map.get("email"))
+				.postcode(Integer.parseInt(map.get("postcode")))
+				.address(map.get("address"))
+				.detailaddress(map.get("detailaddress"))
+				.build();
 		
 		try {
-			logger.info("" + vo);
+			logger.info("" + map);
 			userService.register(vo);
 			
 			resultMap.put("status", true);
@@ -153,19 +172,36 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/user/findPw.do", method = RequestMethod.POST)
-	public @ResponseBody Map<String, Object> findPw(@RequestBody Map<String, String> map) {
+	public @ResponseBody Map<String, Object> findPw(@RequestBody Map<String, String> map, HttpServletRequest req) {
 		logger.info("비밀번호 찾기");
-		//TODO 초기화하기 그래서 로그인후에 할껀지 바로 할껀지
 		Map<String , Object> resultMap = new HashMap<String, Object>();
 		
 		try {
-			logger.info("" + map);
 			userService.findPw(map);
 			
+			HttpSession session = req.getSession();
+			String randomNum = mailSendService.makeRandomNumber();
+			session.setAttribute("AuthNum", randomNum);
+			session.setMaxInactiveInterval(300);
+			
+			BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/mailTemplate/authTemplate.html"), "utf-8"));
+	
+			StringBuilder str = new StringBuilder();
+			reader.lines().forEach(lineText -> {
+				str.append(lineText);
+			});
+			String htmlStr = str.toString();
+			htmlStr = htmlStr.replace("${AuthNumber}", randomNum);
+
+			if (map.get("findpw") != null) {
+				logger.info(""+ map.get("userid"));
+				session.setAttribute("userid", map.get("userid"));
+			}
+			mailSendService.sendAuthMail(map.get("email"), "인증번호", htmlStr);
 			resultMap.put("status", true);
-			resultMap.put("message", "새로운 비밀번호로 변경해주세요.");
+			resultMap.put("message", "이메일로 발송된 인증번호를 가지고 새로운 비밀번호로 변경해주세요.");
 			resultMap.put("url", "/project/user/updatePwForm.do");
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			resultMap.put("status", false);
 			resultMap.put("message", "회원 정보가 없습니다.");
@@ -177,19 +213,21 @@ public class UserController {
 	@RequestMapping("/user/updatePwForm.do")
 	public String updatePwForm() {
 		logger.info("비밀번호 변경 페이지");
-		//TODO 비밀번호 어떻게 할꺼냐
+
 		return "/user/updatePwForm";
 	}
 	
 	@RequestMapping(value = "/user/updatePw.do", method = RequestMethod.POST)
-	public @ResponseBody Map<String, Object> updatePw(@RequestBody Map<String, String> map) {
+	public @ResponseBody Map<String, Object> updatePw(@RequestBody Map<String, String> map, HttpServletRequest req) {
 		logger.info("비밀번호 변경");
-		//TODO sad
+		
 		Map<String , Object> resultMap = new HashMap<String, Object>();
+		HttpSession session = req.getSession();
 		
 		try {
-			logger.info("" + map);
+			map.put("userid", (String)session.getAttribute("userid"));
 			userService.updatePw(map);
+			session.invalidate();
 			
 			resultMap.put("status", true);
 			resultMap.put("message", "정상적으로 비밀번호가 변경되었습니다.");
@@ -256,7 +294,6 @@ public class UserController {
 		Map<String , Object> resultMap = new HashMap<String, Object>();
 		
 		try {
-			logger.info("" + map);
 			UserVO vo = (UserVO) session.getAttribute("userVO");
 
 			if (map.get("pwd").equals(vo.getPwd())) {
@@ -285,5 +322,90 @@ public class UserController {
 		session.invalidate();
 		
 		return "redirect:/main/userMain.do";
+	}
+	
+	@RequestMapping("/user/send_auth.do")
+	public @ResponseBody Map<String, Object> send_auth(@RequestBody Map<String, String> map, HttpServletRequest req) {
+		logger.info("인증 번호 발송");
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		try {
+			HttpSession session = req.getSession();
+			String randomNum = mailSendService.makeRandomNumber();
+			session.setAttribute("AuthNum", randomNum);
+			session.setMaxInactiveInterval(300);
+			
+			BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/mailTemplate/authTemplate.html"), "utf-8"));
+	
+			StringBuilder str = new StringBuilder();
+			reader.lines().forEach(lineText -> {
+				str.append(lineText);
+			});
+			String htmlStr = str.toString();
+			htmlStr = htmlStr.replace("${AuthNumber}", randomNum);
+
+			mailSendService.sendAuthMail(map.get("email"), "인증번호", htmlStr);
+			
+			resultMap.put("status", true);
+			resultMap.put("message", "이메일 확인해주세요");
+		} catch (Exception e) {
+			resultMap.put("status", false);
+			resultMap.put("message", "오류");
+		}
+		
+		
+		return resultMap;
+	}
+	
+	@RequestMapping("/user/authentic.do")
+	public @ResponseBody Map<String, Object> authentic(@RequestBody Map<String, String> map, HttpServletRequest req) {
+		logger.info("인증 번호 확인");
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		try {
+			HttpSession session = req.getSession();
+
+			if (session.getAttribute("AuthNum").equals(map.get("AuthNum"))) {
+				if (map.get("findpw") == null) {
+					session.invalidate();
+				}
+				resultMap.put("status", true);
+				resultMap.put("message", "인증되었습니다.");
+			} else {
+				resultMap.put("status", false);
+				resultMap.put("message", "인증 실패");
+			}
+		} catch (Exception e) {
+			resultMap.put("status", false);
+			resultMap.put("message", "시간이 지났습니다. 다시 메일 인증 해주세요.");
+		}
+		
+		
+		return resultMap;
+	}
+	
+	@RequestMapping("/user/overlabID.do")
+	public @ResponseBody Map<String, Object> overlabID(@RequestBody Map<String, String> map) {
+		logger.info("아이디 중복 체크");
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		try {
+			UserVO vo = userService.overlabId(map.get("userid"));
+			if (vo != null) {
+				resultMap.put("status", false);
+				resultMap.put("message", "사용 불가능한 아이디입니다.");
+			} else {
+				resultMap.put("status", true);
+				resultMap.put("message", "사용 가능한 아이디입니다.");
+			}
+		} catch (Exception e) {
+			resultMap.put("status", false);
+			resultMap.put("message", "사용 불가능한 아이디입니다.");
+		}
+		
+		return resultMap;
 	}
 }

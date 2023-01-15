@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.project.mappers.OrderItemDAO">	
-	<insert id="orderItemRegister" parameterType="hashmap">
-		insert into orderItem_tbl values ()
+	<insert id="orderItemRegister">
+		insert into order_Item_tbl values (ORDER_ITEM_NO_SEQ.NEXTVAL, #{userid}, #{order_no}, #{goods_id}, #{count})
 	</insert>
 </mapper>

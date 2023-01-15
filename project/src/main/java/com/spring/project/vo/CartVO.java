@@ -21,6 +21,7 @@ public class CartVO {
 	private String real_thumbnail;
 	private int count;
 	private int price;
+	private int delivery_price;
 	private String select_check;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="Asia/Seoul")
 	private Timestamp regi_date;

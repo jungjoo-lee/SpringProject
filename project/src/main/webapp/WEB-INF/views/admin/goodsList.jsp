@@ -5,6 +5,9 @@
 
 </head>
 <body>
+<div class="page-breadcrumb">
+	<h1>상품 관리</h1>
+</div>
 <div class="container-fluid">
 <a href="<c:url value='/admin/goodsRegisterForm.do'/>">상품등록</a>
 </div>

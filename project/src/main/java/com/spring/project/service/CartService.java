@@ -34,7 +34,11 @@ public class CartService {
 		return cartDAO.selectList(userid);
 	}
 	
-	public void completeOrder(List<Integer> list) {
-		cartDAO.completeOrder(list);
+	public void completeOrder(String userid) {
+		cartDAO.completeOrder(userid);
+	}
+	
+	public void updateCountCart(Map<String, String> map) {
+		cartDAO.updateCountCart(map);
 	}
 }

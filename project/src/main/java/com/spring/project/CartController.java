@@ -59,10 +59,11 @@ public class CartController {
 		logger.info("장바구니 페이지");
 		
 		HttpSession session = req.getSession();
-		UserVO vo = (UserVO) session.getAttribute("userVO");
+		UserVO userVO = (UserVO) session.getAttribute("userVO");
 		
 		try {
-			model.addAttribute("list", cartService.cartList(vo.getUserid()));
+			model.addAttribute("userVO", userVO);
+			model.addAttribute("list", cartService.cartList(userVO.getUserid()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -97,6 +98,24 @@ public class CartController {
 		
 		try {
 			cartService.updateCart(map);
+			resultMap.put("status", true);
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultMap.put("status", false);
+			resultMap.put("message", "오류");
+		}
+		
+		return resultMap;
+	}
+	
+	@RequestMapping("/cart/updateCountCart.do")
+	public @ResponseBody Map<String, Object> updateCountCart(@RequestBody Map<String, String> map) {
+		logger.info("장바구니 수량 수정");
+
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		try {
+			cartService.updateCountCart(map);
 			resultMap.put("status", true);
 		} catch (Exception e) {
 			e.printStackTrace();

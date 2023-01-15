@@ -46,7 +46,7 @@
 	</update>
 	
 	<insert id="register">
-		insert into user_tbl(userid, pwd, name, sex, phone, address) values (#{userid}, #{pwd}, #{name}, #{sex}, #{phone}, #{address})
+		insert into user_tbl(userid, pwd, name, sex, phone, birthday, email, postcode, address, detailaddress) values (#{userid}, #{pwd}, #{name}, #{sex}, #{phone}, TO_DATE(#{birthday}), #{email}, #{postcode}, #{address}, #{detailaddress})
 	</insert>
 	
 	<select id="findId" resultType="String">
@@ -54,7 +54,7 @@
 	</select>
 	
 	<select id="findPw" resultType="com.spring.project.vo.UserVO">
-		select * from user_tbl where userid = #{userid} and name = #{name} and phone = #{phone}
+		select * from user_tbl where userid = #{userid} and name = #{name} and email = #{email}
 	</select>
 	
 	<update id="updatePw">
@@ -68,4 +68,10 @@
 	<delete id="deleteUser">
 		delete from user_tbl where userid = #{userid}
 	</delete>
+	
+	<select id="overlabID" resultType="com.spring.project.vo.UserVO">
+		<![CDATA[
+		select * from user_tbl where userid = #{userid}
+		]]>
+	</select>
 </mapper>

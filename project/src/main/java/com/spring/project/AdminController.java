@@ -99,7 +99,7 @@ public class AdminController {
 			
 			GoodsVO vo = GoodsVO.builder()
 					.goods_id(0)
-					.status_name(map.get("status_id"))
+					.status_id(Integer.parseInt(map.get("status_id")))
 					.book_title(map.get("title"))
 					.price(Integer.parseInt(map.get("price")))
 					.author(map.get("author"))
@@ -110,7 +110,9 @@ public class AdminController {
 					.release_date(map.get("release_date"))
 					.page_number(Integer.parseInt(map.get("page_number")))
 					.book_size(map.get("book_size"))
-					.point(map.get("point")).build();
+					.point(map.get("point"))
+					.delivery_price(Integer.parseInt(map.get("delivery_price")))
+					.build();
 			
 			Iterator<String> fileNames = multipartRequest.getFileNames();
 //			List<BoardFile> boardFileList = new ArrayList<>();
@@ -138,7 +140,7 @@ public class AdminController {
 						vo.setReal_cover(coverName);
 						
 						File thumbFile = new File(String.valueOf("C:\\book\\thumbnail\\" + thumbnail));
-						Thumbnails.of(file).size(140, 210).outputFormat("png").toFile(thumbFile);
+						Thumbnails.of(file).size(180, 210).outputFormat("png").toFile(thumbFile);
 						vo.setReal_thumbnail(thumbnail);
 						vo.setThumbnail(mFile.getOriginalFilename().substring(0, mFile.getOriginalFilename().indexOf(".")) + ".png");
 					}

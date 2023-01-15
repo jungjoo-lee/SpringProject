@@ -55,4 +55,8 @@ public class UserService {
 	public void deleteUser(UserVO vo) throws SQLException {
 		userDAO.deleteUser(vo);
 	}
+	
+	public UserVO overlabId(String userid) throws SQLException {
+		return userDAO.overlabID(userid);
+	}
 }

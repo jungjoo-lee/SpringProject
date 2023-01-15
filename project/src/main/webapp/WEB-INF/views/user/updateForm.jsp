@@ -9,6 +9,10 @@
 <title>회원 정보 수정</title>
 </head>
 <body>
+<div class="page-breadcrumb">
+	<h1>회원 정보 수정</h1>
+</div>
+<div class="container-fluid">
 <form>
 아이디 <input type="text" name="userid" id="userid" readonly="readonly" value="${userVO.userid}"><br/>
 비밀번호 <input type="password" name="pwd" id="pwd"><br/>
@@ -20,6 +24,7 @@
 <input type="button" id="updateButton" value="정보 수정">
 <input type="reset" value="초기화">
 </form>
+</div>
 <script type="text/javascript">
 let updateButton = document.getElementById("updateButton");
 

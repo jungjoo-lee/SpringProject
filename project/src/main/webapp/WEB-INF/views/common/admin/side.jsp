@@ -23,13 +23,13 @@
 					<ul aria-expanded="false" class="collapse  first-level base-level-line">
 						<li class="sidebar-item"><a href="<c:url value='/admin/userList.do'/>" class="sidebar-link"><span class="hide-menu">유저 관리</span></a></li>
 						<li class="sidebar-item"><a href="<c:url value='/admin/goodsList.do'/>" class="sidebar-link"><span class="hide-menu">상품 관리</span></a></li>
-						<li class="sidebar-item"><a href="<c:url value='d'/>" class="sidebar-link"><span class="hide-menu">배송 관리</span></a></li>
-						<li class="sidebar-item"><a href="<c:url value='s'/>" class="sidebar-link"><span class="hide-menu">게시판 관리</span></a></li>
-						<li class="sidebar-item"><a href="<c:url value='/goods/Sales.do'/>" class="sidebar-link"><span class="hide-menu">매출 관리</span></a></li>
+						<li class="sidebar-item"><a href="<c:url value='/admin/deliveryList.do'/>" class="sidebar-link"><span class="hide-menu">배송 관리</span></a></li>
+						<li class="sidebar-item"><a href="<c:url value='/admin/boardList.do'/>" class="sidebar-link"><span class="hide-menu">게시판 관리</span></a></li>
+						<li class="sidebar-item"><a href="<c:url value='/admin/Sales.do'/>" class="sidebar-link"><span class="hide-menu">매출 관리</span></a></li>
 					</ul>
 				</li>
 				
-				<li class="list-divider"></li>
+				<%-- <li class="list-divider"></li>
 				
 				<li class="nav-small-cap"><span class="hide-menu">관리 메뉴</span></li>
 				<li class="sidebar-item"><a class="sidebar-link" href="<c:url value='d'/>" aria-expanded="false">
@@ -43,9 +43,9 @@
 				<li class="sidebar-item"><a class="sidebar-link sidebar-link" href="<c:url value='d'/>" aria-expanded="false">
 					<i data-feather="calendar" class="feather-icon"></i>
 					<span class="hide-menu"></span></a>
-				</li>
+				</li> --%>
 
-				<li class="list-divider"></li>
+				<%-- <li class="list-divider"></li>
 				
 				<li class="nav-small-cap"><span class="hide-menu">Components</span></li>
 				<li class="sidebar-item"><a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
@@ -142,13 +142,11 @@
 						</li>
 						<li class="sidebar-item"><a href="javascript:void(0)" class="sidebar-link"><span class="hide-menu">item 1.4</span></a></li>
 					</ul>
-				</li>
+				</li> --%>
 				
 				<li class="list-divider"></li>
 				
-				<li class="nav-small-cap"><span class="hide-menu">Extra</span></li>
-				<li class="sidebar-item"><a class="sidebar-link sidebar-link" href="../../docs/docs.html" aria-expanded="false">
-					<i data-feather="edit-3" class="feather-icon"></i><span class="hide-menu">Documentation</span></a></li>
+				<li class="nav-small-cap"><span class="hide-menu">로그아웃</span></li>
 				<li class="sidebar-item"><a class="sidebar-link sidebar-link" href="<c:url value='/user/logout.do'/>" aria-expanded="false">
 					<i data-feather="log-out" class="feather-icon"></i><span class="hide-menu">Logout</span></a></li>
 			</ul>

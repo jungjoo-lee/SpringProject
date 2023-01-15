@@ -6,6 +6,11 @@
 	</select>
 	
 	<insert id="orderRegister">
-		insert into order_tbl values ()
+		insert into order_tbl values (#{order_no}, #{userid}, #{name}, #{phone}, #{postcode}, #{address}, #{detailaddress}, 1, #{order_count}, #{order_price},
+		 #{recipient_name},  #{recipient_phone},  #{recipient_postcode},  #{recipient_address},  #{recipient_detailaddress},  #{payment},  #{cardname},  #{cardnum}, SYSDATE)
 	</insert>
+	
+	<select id="orderList" resultType="com.spring.project.vo.OrderVO">
+		select * from order_tbl inner join ORDER_ITEM_TBL on ORDER_TBL.ORDER_NO = ORDER_ITEM_TBL.ORDER_NO inner join GOODS_TBL on GOODS_TBL.GOODS_ID = ORDER_ITEM_TBL.GOODS_ID inner join DELIVERY_TBL on ORDER_TBL.DELIVERY_ID = DELIVERY_TBL.DELIVERY_ID where ORDER_ITEM_TBL.userid = #{userid}
+	</select>
 </mapper>

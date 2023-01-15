@@ -14,4 +14,5 @@ public class OrderItemVO {
 	private String userid;
 	private int order_no;
 	private int goods_id;
+	private int count;
 }

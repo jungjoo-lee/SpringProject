@@ -21,4 +21,5 @@ public interface UserDAO {
 	void updatePw(Map<String, String> map) throws SQLException;
 	void updateUser(UserVO vo) throws SQLException;
 	void deleteUser(UserVO vo) throws SQLException;
+	UserVO overlabID(String userid) throws SQLException;
 }

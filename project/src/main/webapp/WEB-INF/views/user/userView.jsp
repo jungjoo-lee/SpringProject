@@ -9,6 +9,10 @@
 <title>상세보기</title>
 </head>
 <body>
+<div class="page-breadcrumb">
+	<h1>상세보기</h1>
+</div>
+<div class="container-fluid">
 아이디 : ${userVO.userid}<br/>
 비밀번호 : ${userVO.pwd}<br/>
 이름 : ${userVO.name}<br/>
@@ -32,7 +36,7 @@
 </div>
 <a href="<c:url value='/user/updateForm.do'/>" class="btn btn-sm btn-info">정보 수정</a>
 <a href="javascript:userDelete()" id="deleteInfoButton" class="btn btn-sm btn-info">회원 탈퇴</a>
-
+</div>
 <script type="text/javascript">
 /* window.onload = () => {
 	document.getElementById('deleteInfo').style.display = "none";

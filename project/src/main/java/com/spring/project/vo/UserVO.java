@@ -18,9 +18,8 @@ public class UserVO {
 	private String pwd;
 	private String name;
 	private String sex;
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="Asia/Seoul")
-	private Timestamp birthday;
 	private String phone;
+	private String birthday;
 	private String email;
 	private int postcode;
 	private String address;

@@ -9,6 +9,10 @@
 <title>관리자 페이지</title>
 </head>
 <body>
-
+<div class="page-breadcrumb">
+	<h1></h1>
+</div>
+<div class="container-fluid">
+</div>
 </body>
 </html>

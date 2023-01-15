@@ -15,7 +15,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class GoodsVO {
 	private int goods_id;
-	private String status_name; // status_name
+	private int status_id; // status_name
+	private String status_name;
 	private String cover;
 	private String real_cover;
 	private String thumbnail;
@@ -35,4 +36,5 @@ public class GoodsVO {
 	private String point;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="Asia/Seoul")
 	private Timestamp regidate;
+	private int delivery_price;
 }

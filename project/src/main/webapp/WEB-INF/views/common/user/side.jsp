@@ -40,8 +40,6 @@
 						<li class="sidebar-item"><a href="<c:url value='/goods/goodsList.do'/>" class="sidebar-link"><span class="hide-menu">전제 보기</span></a></li>
 						<li class="sidebar-item"><a href="<c:url value='ㅁㄴㅇㄹ.do'/>" class="sidebar-link"><span class="hide-menu">베스트 셀러</span></a></li>
 						<li class="sidebar-item"><a href="<c:url value='d'/>" class="sidebar-link"><span class="hide-menu">신상 도서</span></a></li>
-						<li class="sidebar-item"><a href="<c:url value='s'/>" class="sidebar-link"><span class="hide-menu">도서</span></a></li>
-						<li class="sidebar-item"><a href="<c:url value='ㄴㅁㅇㄹ.do'/>" class="sidebar-link"><span class="hide-menu">도서</span></a></li>
 					</ul>
 				</li>
 				
@@ -52,7 +50,7 @@
 					<i data-feather="crosshair" class="feather-icon"></i><span class="hide-menu">주문</span></a>
 					
 					<ul aria-expanded="false" class="collapse first-level base-level-line">
-						<li class="sidebar-item"><a href="javascript:void(0)" class="sidebar-link"><span class="hide-menu">주문 목록</span></a></li>
+						<li class="sidebar-item"><a href="<c:url value='/order/orderListForm.do'/>" class="sidebar-link"><span class="hide-menu">주문 목록</span></a></li>
 						<li class="sidebar-item"><a href="<c:url value='/cart/cartListForm.do'/>" class="sidebar-link"><span class="hide-menu">장바구니</span></a></li>
 					</ul>
 				</li>

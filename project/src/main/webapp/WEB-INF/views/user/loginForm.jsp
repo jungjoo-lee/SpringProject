@@ -9,15 +9,34 @@
 <title>로그인</title>
 </head>
 <body>
-<form action="<c:url value='/user/login.do'/>">
-아이디 <input type="text" name="userid" id="userid"><br/>
-비밀번호 <input type="password" name="pwd" id="pwd"><br/>
-<input type="button" id="loginButton" value="로그인"><br/>
-<input type="reset" value="초기화">
-</form>
-<a href="<c:url value='/user/registerForm.do'/>">회원가입</a>|
-<a href="<c:url value='/user/findIdForm.do'/>">아이디 찾기</a>|
-<a href="<c:url value='/user/findPwForm.do'/>">비밀번호 찾기</a>
+<div class="page-breadcrumb">
+	<h1>로그인</h1>
+</div>
+<div class="container-fluid" style="display: flex; justify-content: center;">
+	<div style="flex-direction: column;">
+		<form action="<c:url value='/user/login.do'/>">
+		<table>
+			<tr>
+				<td>아이디</td>
+				<td><input type="text" name="userid" id="userid"></td>
+			</tr>
+			<tr>
+				<td>비밀번호</td>
+				<td><input type="password" name="pwd" id="pwd"></td>
+			</tr>
+			<tr>
+				<td><input type="button" id="loginButton" value="로그인"></td>
+				<td><input type="reset" value="초기화"></td>
+			</tr>
+		</table>
+		</form>
+		<div>
+			<a href="<c:url value='/user/registerForm.do'/>">회원가입</a>|
+			<a href="<c:url value='/user/findIdForm.do'/>">아이디 찾기</a>|
+			<a href="<c:url value='/user/findPwForm.do'/>">비밀번호 찾기</a>
+		</div>
+	</div>
+</div>
 <script type="text/javascript">
 let loginButton = document.getElementById("loginButton");
 

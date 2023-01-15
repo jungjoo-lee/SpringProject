@@ -35,9 +35,10 @@
 			<tr><td>출간일자</td><td><input type="text" id="release_date" name="release_date" placeholder="출간일자"></td>
 			<td>페이지</td><td><input type="text" id="page_number" name="page_number" placeholder="페이지"></td></tr>
 			<tr><td>책 사이즈</td><td><input type="text" id="book_size" name="book_size" placeholder="책 사이즈"></td>
-			<td>책사진</td><td><input type="file" id="mage" name="image"></td></tr>
-			<tr><td>내용사진</td><td><input type="file" id="content_image" name="content_image"></td>
-			<td>첨부파일</td><td><input type="file" id="files" name="files" multiple></td></tr>
+			<td>배송비</td><td><input type="text" id="delivery_price" name="delivery_price"></td></tr>
+			<tr><td>책사진</td><td><input type="file" id="image" name="image"></td>
+			<td>내용사진</td><td><input type="file" id="content_image" name="content_image"></td>
+			<!-- <td>첨부파일</td><td><input type="file" id="files" name="files" multiple></td> --></tr>
 		</table>
 		
 		<ul class="nav nav-tabs mb-3">

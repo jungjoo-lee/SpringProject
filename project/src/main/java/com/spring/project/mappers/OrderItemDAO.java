@@ -1,10 +1,10 @@
 package com.spring.project.mappers;
 
-import java.util.Map;
-
 import org.springframework.stereotype.Repository;
+
+import com.spring.project.vo.OrderItemVO;
 
 @Repository
 public interface OrderItemDAO {
-	void orderItemRegister(Map<String, Object> map);
+	void orderItemRegister(OrderItemVO orderItemVO);
 }

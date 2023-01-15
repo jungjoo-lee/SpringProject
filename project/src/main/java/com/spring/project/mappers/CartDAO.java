@@ -15,5 +15,6 @@ public interface CartDAO {
 	void deleteCart(int cart_no);
 	void updateCart(Map<String, String> map);
 	List<CartVO> selectList(String userid);
-	void completeOrder(List<Integer> list);
+	void completeOrder(String userid);
+	void updateCountCart(Map<String, String> map);
 }

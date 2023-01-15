@@ -9,13 +9,17 @@
 <title>아이디 찾기</title>
 </head>
 <body>
+<div class="page-breadcrumb">
+	<h1>아이디 찾기</h1>
+</div>
+<div class="container-fluid">
 <form>
 이름 <input type="text" id="name1"><br/>
 전화번호 <input type="text" id="phone"><br/>
 <input type="button" id="findIdButton" value="아이디 찾기">
 <input type="reset" value="초기화">
 </form>
-
+</div>
 <script type="text/javascript">
 let findIdButton = document.getElementById("findIdButton");
 

@@ -10,6 +10,9 @@
 <title>상품 목록</title>
 </head>
 <body>
+<div class="page-breadcrumb">
+	<h1>상품 목록</h1>
+</div>
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-12">

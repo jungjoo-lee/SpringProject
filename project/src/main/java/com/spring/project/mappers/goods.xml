@@ -40,13 +40,13 @@
 		 <if test="content_image != null and content_image !=''">
 		 CONTENT_IMAGE, REAL_CONTENT_IMAGE,
 		 </if>
-		  AUTHOR, PUBLISHER, PUBLISHER_CONTENT, BOOK_INDEX, INTRODUCE, RELEASE_DATE, PAGE_NUMBER, BOOK_SIZE, POINT, REGIDATE)
+		  AUTHOR, PUBLISHER, PUBLISHER_CONTENT, BOOK_INDEX, INTRODUCE, RELEASE_DATE, PAGE_NUMBER, BOOK_SIZE, POINT, REGIDATE, DELIVERY_PRICE)
 		values (GOODS_NO_SEQ.NEXTVAL, #{status_id}, #{cover}, #{real_cover}, #{thumbnail}, #{real_thumbnail}, #{book_title}, #{price}, 
 				<if test="content_image != null and content_image !=''">
 				#{content_image}, #{real_content_image},
 				</if>
 				#{author}, #{publisher}, #{publisher_content, jdbcType=CLOB}, #{book_index, jdbcType=CLOB}, #{introduce, jdbcType=CLOB}, TO_DATE(#{release_date}),
-				#{page_number}, #{book_size}, #{point}, sysdate)
+				#{page_number}, #{book_size}, #{point}, sysdate, #{delivery_price})
 	</insert>
 	
 	<select id="goodsView" resultType="com.spring.project.vo.GoodsVO">

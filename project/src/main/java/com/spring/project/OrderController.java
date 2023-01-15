@@ -1,6 +1,5 @@
 package com.spring.project;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.project.service.CartService;
 import com.spring.project.service.OrderService;
+import com.spring.project.vo.CartVO;
 import com.spring.project.vo.OrderItemVO;
 import com.spring.project.vo.OrderVO;
 import com.spring.project.vo.UserVO;
@@ -55,13 +55,27 @@ public class OrderController {
 	@RequestMapping(value = "/order/orderRegister.do", method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> orderRegister(@RequestBody Map<String, Object> map, HttpServletRequest req) {
 		logger.info("주문");
-		
+
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpSession session = req.getSession();
 		UserVO userVO = (UserVO) session.getAttribute("userVO");
 		
+		List<CartVO> list = cartService.selectList(userVO.getUserid());
+		
+		int count = 0;
+		for (int i = 0; i < list.size(); i++) {
+			count += list.get(i).getCount();
+		}
+		
+		int price = 0;
+		for (int i = 0; i < list.size(); i++) {
+			price += (list.get(i).getPrice() - list.get(i).getPrice() * (userVO.getDiscount() / 100)) * list.get(i).getCount() + list.get(i).getDelivery_price();
+		}
+		
+		int orderNextVal = orderService.getNextVal();
+		
 		OrderVO orderVO = OrderVO.builder()
-			.order_no(0)
+			.order_no(orderNextVal)
 			.userid(userVO.getUserid())
 			.name(userVO.getName())
 			.phone(userVO.getPhone())
@@ -69,37 +83,34 @@ public class OrderController {
 			.address(userVO.getAddress())
 			.detailaddress(userVO.getDetailaddress())
 			.delivery_id(1)
-			.order_count(0)
-			.order_price(0)
+			.order_count(count)
+			.order_price(price)
 			.recipient_name((String)map.get("name"))
 			.recipient_phone((String)map.get("phone"))
-			.recipient_postcode((int)map.get("postcode"))
+			.recipient_postcode(Integer.parseInt(String.valueOf(map.get("postcode"))))
 			.recipient_address((String)map.get("address"))
 			.recipient_detailaddress((String)map.get("detailaddress"))
+			.payment((String)map.get("payment"))
+			.cardname((String)map.get("cardName"))
+			.cardnum((String)map.get("cardNum"))
 			.build();
-		
-		int orderNextVal = orderService.getNextVal();
-		
-		Map<String, Object> parameterMap = new HashMap<>();
-		OrderItemVO orderItemVO = OrderItemVO.builder()
-			.OrderItem_no(0)
-			.userid(userVO.getUserid())
-			.order_no(0)
-			.build();
-		parameterMap.put("orderItemVO", orderItemVO);
-		parameterMap.put("orderList", map.get("orderList"));
-		parameterMap.put("orderNextVal", orderNextVal);
-		
-		List<Integer> cartnoList = new ArrayList<>();
-		cartnoList.add((Integer) map.get("orderList"));
 		
 		try {
 			orderService.orderRegister(orderVO);
-			orderService.orderItemRegister(parameterMap);
+			for (int i = 0; i < list.size(); i++) {			
+				OrderItemVO orderItemVO = OrderItemVO.builder()
+						.OrderItem_no(0)
+						.userid(userVO.getUserid())
+						.order_no(orderNextVal)
+						.goods_id(list.get(i).getGoods_id())
+						.count(list.get(i).getCount())
+						.build();
+				orderService.orderItemRegister(orderItemVO);
+			}
+			cartService.completeOrder(userVO.getUserid());
 			resultMap.put("status", true);
 			resultMap.put("message", "주문 완료");
-			resultMap.put("url", "/project/user/orderListForm.do");
-			cartService.completeOrder(cartnoList);
+			resultMap.put("url", "/project/order/orderListForm.do");
 		} catch (Exception e) {
 			e.printStackTrace();
 			resultMap.put("status", false);
@@ -107,5 +118,17 @@ public class OrderController {
 		}
 		
 		return resultMap;
+	}
+	
+	@RequestMapping(value = "/order/orderListForm.do", method = RequestMethod.GET)
+	public String orderListForm(Model model, HttpServletRequest req) {
+		logger.info("주문 리스트 페이지");
+		
+		HttpSession session = req.getSession();
+		UserVO userVO = (UserVO) session.getAttribute("userVO");
+		model.addAttribute("list", orderService.orderList(userVO.getUserid()));
+		model.addAttribute("userVO", userVO);
+		
+		return "/order/orderListForm";
 	}
 }
