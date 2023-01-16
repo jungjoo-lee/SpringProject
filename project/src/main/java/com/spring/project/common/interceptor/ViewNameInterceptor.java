@@ -55,6 +55,7 @@ public class ViewNameInterceptor extends  HandlerInterceptorAdapter{
 			if (fileName.lastIndexOf("/") != -1) {
 				fileName = fileName.substring(fileName.lastIndexOf("/",1), fileName.length());
 			}
+			
 			return fileName;
-		}
 	}
+}

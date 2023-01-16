@@ -190,6 +190,13 @@ sameAddress.addEventListener("click", () => {
 let newAddress = document.getElementById("newAddress");
 newAddress.addEventListener("click", () => {
 	selectAddress.disabled = true;
+	name1.value = '';
+	num1.value = '';
+	num2.value = '';
+	num3.value = '';
+	postcode.value = '';
+	address.value = '';
+	detailaddress.value = '';	
 });
 
 let otherAddress = document.getElementById("otherAddress");

@@ -24,7 +24,8 @@ public class UserVO {
 	private int postcode;
 	private String address;
 	private String detailaddress;
-	private String grade; // gname
+	private int gno; // gname
+	private String grade;
 	private int discount;
 	private int point;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="Asia/Seoul")

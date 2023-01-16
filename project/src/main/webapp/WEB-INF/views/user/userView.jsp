@@ -38,10 +38,6 @@
 <a href="javascript:userDelete()" id="deleteInfoButton" class="btn btn-sm btn-info">회원 탈퇴</a>
 </div>
 <script type="text/javascript">
-/* window.onload = () => {
-	document.getElementById('deleteInfo').style.display = "none";
-}
- */
 function userDelete() {
 	 document.getElementById('deleteInfo').style.display = "block";
 	 document.getElementById('deleteInfoButton').removeAttribute('href');

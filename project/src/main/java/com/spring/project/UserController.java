@@ -65,6 +65,7 @@ public class UserController {
 				.postcode(Integer.parseInt(map.get("postcode")))
 				.address(map.get("address"))
 				.detailaddress(map.get("detailaddress"))
+				.gno(1)
 				.build();
 		
 		try {
